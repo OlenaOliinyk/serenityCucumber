@@ -44,7 +44,6 @@ public class EndUserSteps {
     @Step
     public void getURL() throws IOException {
         EnvironmentPropertyLoader properties = new EnvironmentPropertyLoader();
-
         properties.getProperty("https://www.google.com.ua/");
     }
 }
