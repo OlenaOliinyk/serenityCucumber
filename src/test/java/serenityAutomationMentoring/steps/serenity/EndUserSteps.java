@@ -41,9 +41,13 @@ public class EndUserSteps {
         starts_search();
     }
 
+
+    EnvironmentPropertyLoader properties = new EnvironmentPropertyLoader();
+
     @Step
-    public void getURL() throws IOException {
-        EnvironmentPropertyLoader properties = new EnvironmentPropertyLoader();
-        properties.getProperty("https://www.google.com.ua/");
+    public void retrieveEnvValue() {
+        properties.getProperty("env1");
+
+
     }
 }
