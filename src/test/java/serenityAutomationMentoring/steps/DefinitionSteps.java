@@ -11,20 +11,33 @@ public class DefinitionSteps {
 
     @Steps
     EndUserSteps anna;
+    @Steps
+    EndUserSteps olena;
 
     @Given("the user is on the Wikionary home page")
     public void givenTheUserIsOnTheWikionaryHomePage() {
         anna.is_the_home_page();
     }
 
+    @Given("the user is on the Inventory home page")
+    public void givenInventoryUrl(){olena.is_the_home_page();}
+
     @When("the user looks up the definition of the word '(.*)'")
     public void whenTheUserLooksUpTheDefinitionOf(String word) {
         anna.looks_for(word);
     }
 
+    @When("the user posts an order with id  '(.*)' petId  '(.*)' quantity  '(.*)' ")
+    public void placeOrder(int id, int petId, int quantity)          { olena.postOrder(id,petId,quantity);}
+
     @Then("they should see the definition '(.*)'")
     public void thenTheyShouldSeeADefinitionContainingTheWords(String definition) {
         anna.should_see_definition(definition);
+    }
+    @Then("the order has statusCode  '(.*)'")
+    public void verifyStatusCode(int statusCode) {
+        olena.should_get_in_response_statusCode(statusCode);
+
     }
 
 }
