@@ -1,30 +1,52 @@
 package serenityAutomationMentoring.steps;
 
-import net.thucydides.core.annotations.Steps;
 import cucumber.api.java.en.Given;
-import cucumber.api.java.en.Then;
-import cucumber.api.java.en.When;
-
+import net.thucydides.core.annotations.Steps;
 import serenityAutomationMentoring.steps.serenity.EndUserSteps;
 
 public class DefinitionSteps {
 
+
     @Steps
-    EndUserSteps anna;
+    EndUserSteps endUserSteps;
 
-    @Given("the user is on the Wikionary home page")
-    public void givenTheUserIsOnTheWikionaryHomePage() {
-        anna.is_the_home_page();
+    @Given("the user has contentType")
+    public void givenGetMethod() {
+        endUserSteps.givenRest();
+
+
     }
-
-    @When("the user looks up the definition of the word '(.*)'")
-    public void whenTheUserLooksUpTheDefinitionOf(String word) {
-        anna.looks_for(word);
+    @Given("the user has baseURL")
+    public void givenPost() {
+        endUserSteps.givenPost();
     }
-
-    @Then("they should see the definition '(.*)'")
-    public void thenTheyShouldSeeADefinitionContainingTheWords(String definition) {
-        anna.should_see_definition(definition);
-    }
-
+//    @When("the user send get response '(.*)'")
+////    public void whenGetMethod(final String getUrl) {
+////        endUserSteps.we();
+////    }
+////    @When("the user post order")
+////    public void whenPost() {
+////        endUserSteps.wen();
+////    }
+////    @When("the user posts an order with id '(.*)' petId '(.*)' quantity '(.*)'")
+////    public void placeOrder(final int id, final int petId, final int quantity) {
+////        //endUserSteps.postOrder(id, petId, quantity);
+////
+////    }
+////
+////    @Then("the order has status '(.*)'")
+////    public void verifyStatusCode(int statusCode) {
+////        //принимает на вход значение из фиче файла
+////        //endUserSteps.getStatusCode();
+////        System.out.println(statusCode+" from feature");
+////       // endUserSteps.getResponseLongitude();
+////        endUserSteps.th();
+////
+////    }
+////    @Then("the order is placed")
+////    public void thenPost(){
+////        endUserSteps.the();
+////        endUserSteps.shouldGetInResponseStatusCode();
+////
+////    }
 }
