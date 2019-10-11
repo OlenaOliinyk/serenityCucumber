@@ -31,13 +31,14 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.core.Is.is;
+import static serenityAutomationMentoring.TestSessionVariables.ACTUAL_RESPONSE_JSON;
+import static serenityAutomationMentoring.steps.GetOrderById.getOrderByIdRequest;
 
 public class EndUserSteps {
 
 
     EnvironmentPropertyLoader properties = new EnvironmentPropertyLoader();
-    //DictionaryPage dictionaryPage;
-    private Response response;
+
     private static final String POST_BODY = "{ \"id\": 35, \"petId\": 1, \"quantity\": 1, \"shipDate\": \"2019-08-05T13:40:02.396Z\", \"status\": \"placed\", \"complete\": false}";
     // private static final String POST_BODY = "{ \"id\": %s, \"petId\": %s, \"quantity\": %s, \"shipDate\": \"2019-08-05T13:40:02.396Z\", \"status\": \"placed\", \"complete\": false}";
     public static final String ACTUAL_RESPONSE_STATUS_CODE = "actual.response.status.code";
@@ -67,6 +68,7 @@ public class EndUserSteps {
                 when()
                 .get(sendGetResponse).then().log().body();
         System.out.println(sendGetResponse+" get response" );
+
     }
 
    @Step
@@ -152,11 +154,24 @@ public class EndUserSteps {
     @Step
     public void shouldGetInResponseStatusCode() {
 
-       ResponseSpecification actualResult = (ResponseSpecification) response.then().statusCode(300);
+      // ResponseSpecification actualResult = (ResponseSpecification) response.then().statusCode(300);
 
-        Assert.assertEquals(200,actualResult);
+      //  Assert.assertEquals(200,actualResult);
 
     }
-
-
+    @Step
+    public void sendWeatherGetRequest(final String parameters) {
+        Response response = getOrderByIdRequest(parameters);
+        Serenity.setSessionVariable(ACTUAL_RESPONSE_STATUS_CODE).to(String.valueOf(response.getStatusCode()));
+         Serenity.setSessionVariable(ACTUAL_RESPONSE_JSON).to(response.body().asString());
+        System.out.println(ACTUAL_RESPONSE_STATUS_CODE+" actualt status");
+    }
+    @Step
+    public void responseStatusCodeValidation(final String statusCode) {
+        Assert.assertThat(
+                "Wrong status code in response.",
+                Serenity.sessionVariableCalled(ACTUAL_RESPONSE_STATUS_CODE).toString(),
+                is(statusCode));
+        System.out.println(statusCode);
+    }
 }

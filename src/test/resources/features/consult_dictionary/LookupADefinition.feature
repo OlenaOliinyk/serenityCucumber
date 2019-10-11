@@ -21,9 +21,10 @@ Feature: Lookup a definition
 
   Scenario: get inventory by id
     Given the user has contentType
-    When the user send get response 'https://petstore.swagger.io/v2/store/order/2'
-  Then verify status
-# Then the order has status '200'
+    When the user send request 'https://petstore.swagger.io/v2/store/order/2'
+    And the user save response
+
+Then the order has status '500'
 
 #  Scenario: post inventory by id
 #    Given the user has baseURL
