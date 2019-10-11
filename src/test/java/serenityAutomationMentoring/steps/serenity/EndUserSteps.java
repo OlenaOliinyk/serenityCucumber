@@ -8,6 +8,7 @@ import jnr.ffi.mapper.ToNativeConverter;
 import net.serenitybdd.core.Serenity;
 import net.serenitybdd.core.SerenityReports;
 import org.eclipse.jetty.websocket.api.StatusCode;
+import org.hamcrest.Matcher;
 import org.hamcrest.Matchers;
 import org.jruby.RubyThread;
 import org.jsoup.helper.StringUtil;
@@ -29,6 +30,7 @@ import static net.serenitybdd.rest.SerenityRest.then;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.core.Is.is;
 
 public class EndUserSteps {
 
@@ -38,21 +40,53 @@ public class EndUserSteps {
     private Response response;
     private static final String POST_BODY = "{ \"id\": 35, \"petId\": 1, \"quantity\": 1, \"shipDate\": \"2019-08-05T13:40:02.396Z\", \"status\": \"placed\", \"complete\": false}";
     // private static final String POST_BODY = "{ \"id\": %s, \"petId\": %s, \"quantity\": %s, \"shipDate\": \"2019-08-05T13:40:02.396Z\", \"status\": \"placed\", \"complete\": false}";
+    public static final String ACTUAL_RESPONSE_STATUS_CODE = "actual.response.status.code";
 
     @Step
-    public void givenRest() {
-        System.out.println("get inventory started");
+    // common Step for rest
+    public void comonRest() {
 
-                given()
-                        .accept(ContentType.JSON)
-                        .when().get("https://petstore.swagger.io/v2/store/order/2")
-                        .then().statusCode(200).body("id", equalTo(2)).log().all();
+        int status = given()
+                .accept(ContentType.JSON)
+                .when().get("https://petstore.swagger.io/v2/store/order/2")
+                .then().extract().statusCode();
+        Assert.assertEquals("StatusCode",200,status);
 
-        System.out.println("get inventory finished ");
         System.out.println("--------------------------");
-
     }
 
+    @Step
+    public void  givenGet(){
+         given()
+                .accept(ContentType.JSON);
+    }
+
+    @Step
+    public void whenGet(final String sendGetResponse){
+
+                when()
+                .get(sendGetResponse).then().log().body();
+        System.out.println(sendGetResponse+" get response" );
+    }
+
+   @Step
+    public void thenGetVerify(){
+       Response status =
+               (Response) expect().that().statusCode(500);
+             //  then().extract().statusCode();
+      Assert.assertEquals("StatusCode",200,status);
+       System.out.println("status");
+    }
+
+    @Step
+    public void responseStatusCodeValidation(final Response statusCode) {
+   int status =
+                 then().extract().statusCode();
+       Assert.assertEquals("StatusCode",statusCode,status);
+        System.out.println(status);
+    }
+
+    // Steps for post
     @Step
     public void givenPost() {
         System.out.println("post inventory started");
@@ -68,8 +102,6 @@ public class EndUserSteps {
         System.out.println("post inventory finished");
 
     }
-
-
 
 
 
@@ -100,30 +132,21 @@ public class EndUserSteps {
 
     }
 
-//    @Step
-//    public void giv() {
-//
-//        rest()
-//                .accept(ContentType.JSON)
-//                .body(POST_BODY)
-//                .when()
-//                .post("/order")
-//                .then().statusCode(200)
-//                .log().body();
+    @Step
+    public void giv() {
 
-        // .log().all();
+        rest()
+                .accept(ContentType.JSON)
+                .body(POST_BODY)
+                .when()
+                .post("/order")
+                .then().statusCode(200)
+                .log().body();
 
-//        System.out.println(getStatusCode());
-//    }
+         //.log().all();
 
-
-
-
-
-
-
-
-
+       // System.out.println(getStatusCode());
+    }
 
 
     @Step
