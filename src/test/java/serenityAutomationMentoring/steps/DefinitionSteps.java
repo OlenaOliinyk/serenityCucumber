@@ -4,8 +4,11 @@ import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import net.serenitybdd.core.Serenity;
 import net.thucydides.core.annotations.Steps;
 import serenityAutomationMentoring.steps.serenity.EndUserSteps;
+
+import static serenityAutomationMentoring.TestSessionVariables.REQUEST_PARAMETERS;
 
 public class DefinitionSteps {
 
@@ -21,22 +24,19 @@ public class DefinitionSteps {
 
     }
 
-    @Given("the user has baseURL")
-    public void givenPost() {
-        endUserSteps.givenPost();
-    }
-
-
     @When("the user send request '(.*)'")
     public void whenGetMethod(final String sendGetResponse) {
         endUserSteps.whenGet(sendGetResponse);
-
     }
-
+    @When("GET request")
+    public void whenGetMetd() {
+     //  endUserSteps.sendGetRequest(Serenity.sessionVariableCalled(REQUEST_PARAMETERS).toString());
+endUserSteps.sendGetRequest();
+    }
 
     @And("the user save response")
     public void saveResponse() {
-        endUserSteps.andUserSaveResponce("order id 2");
+        endUserSteps.andUserSaveResponce("And the user save response with Status code");
     }
 
 

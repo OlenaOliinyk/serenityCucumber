@@ -1,38 +1,20 @@
 package serenityAutomationMentoring.steps.serenity;
 
 import io.restassured.http.ContentType;
-import io.restassured.mapper.ObjectMapper;
 import io.restassured.response.Response;
-import io.restassured.specification.ResponseSpecification;
-import jnr.ffi.mapper.ToNativeConverter;
 import net.serenitybdd.core.Serenity;
-import net.serenitybdd.core.SerenityReports;
-import org.eclipse.jetty.websocket.api.StatusCode;
-import org.hamcrest.Matcher;
-import org.hamcrest.Matchers;
-import org.jruby.RubyThread;
-import org.jsoup.helper.StringUtil;
 import org.junit.Assert;
 
-import serenityAutomationMentoring.EnvironmentPropertyLoader;
-import serenityAutomationMentoring.pages.DictionaryPage;
 import net.thucydides.core.annotations.Step;
-import net.thucydides.core.steps.ScenarioSteps;
-import net.serenitybdd.rest.SerenityRest;
-
-import java.io.IOException;
-
-import io.restassured.RestAssured;
 
 import static io.restassured.RestAssured.*;
 import static net.serenitybdd.rest.SerenityRest.rest;
-import static net.serenitybdd.rest.SerenityRest.then;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.core.Is.is;
-import static serenityAutomationMentoring.TestSessionVariables.ACTUAL_RESPONSE_JSON;
+import static serenityAutomationMentoring.TestSessionVariables.*;
 import static serenityAutomationMentoring.steps.GetOrderById.getOrderByIdRequest;
+import static serenityAutomationMentoring.steps.GetOrderById.getOrderByIdRequestSimple;
 
 public class EndUserSteps {
 
@@ -49,7 +31,9 @@ public class EndUserSteps {
 
         int status = given()
                 .accept(ContentType.JSON)
-                .when().get("https://petstore.swagger.io/v2/store/order/2")
+                .when()
+                //.get("https://petstore.swagger.io/v2/store/order/2")
+                .get()
                 .then().extract().statusCode();
         Assert.assertEquals("StatusCode",200,status);
 
@@ -63,6 +47,7 @@ public class EndUserSteps {
     }
 
     @Step
+    //step for simple when url send in feature file
     public void whenGet(final String sendGetResponse){
 
                 when()
@@ -70,7 +55,13 @@ public class EndUserSteps {
         System.out.println(sendGetResponse+" get response" );
 
     }
-
+    @Step
+    public void sendGetRequest() {
+        Response response = getOrderByIdRequest();
+        Serenity.setSessionVariable(ACTUAL_RESPONSE_STATUS_CODE).to(String.valueOf(response.getStatusCode()));
+        Serenity.setSessionVariable(ACTUAL_RESPONSE_JSON).to(response.body().asString());
+        System.out.println("8888h---------------");
+    }
     // Steps for post
     @Step
     public void givenPost() {
@@ -112,7 +103,7 @@ public class EndUserSteps {
 
     @Step
     public void andUserSaveResponce(final String parameters) {
-        Response response = getOrderByIdRequest(parameters);
+        Response response = getOrderByIdRequestSimple(parameters);
         Serenity.setSessionVariable(ACTUAL_RESPONSE_STATUS_CODE).to(String.valueOf(response.getStatusCode()));
          Serenity.setSessionVariable(ACTUAL_RESPONSE_JSON).to(response.body().asString());
         System.out.println(ACTUAL_RESPONSE_STATUS_CODE+" actualt status");

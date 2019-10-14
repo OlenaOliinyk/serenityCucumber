@@ -9,19 +9,29 @@ import static serenityAutomationMentoring.properties.PropertiesNames.OPEN_GET_IN
 
 public class GetOrderById {
 
-    private static final String API_REQUEST_URL = "%s/%s?%s";
-    private static final String RESOURCE = "order/2";
-    public static Response getOrderByIdRequest(final String parameters) {
+    private static final String API_REQUEST_URL = "https://petstore.swagger.io/v2/store/order/3";
+    private static final String RESOURCE = "https://petstore.swagger.io/v2/store/order/3";
+    public static Response getOrderByIdRequestSimple(final String parameters) {
 
-        System.out.println(parameters+" parametrs is get url");
+        System.out.println(parameters+" --->>parametrs in GetOrderById class");
         return rest()
                 .accept(ContentType.JSON)
                 .when()
-               .get("https://petstore.swagger.io/v2/store/order/2")
-               // .get(String.format(API_REQUEST_URL, getProperty(OPEN_GET_INVENTORY_ENDPOINT), RESOURCE, parameters))
+               .get("https://petstore.swagger.io/v2/store/order/3")
                 .then()
                 .extract().response();
 
     }
+    public static Response getOrderByIdRequest() {
 
+    //    System.out.println(parameters+" --->>parametrs in GetOrderById class");
+        return rest()
+                .accept(ContentType.JSON)
+                .when()
+              //  .get(String.format(API_REQUEST_URL, getProperty(OPEN_GET_INVENTORY_ENDPOINT), RESOURCE))
+                .get(getProperty("env1.properties"))
+                .then()
+                .extract().response();
+
+    }
 }

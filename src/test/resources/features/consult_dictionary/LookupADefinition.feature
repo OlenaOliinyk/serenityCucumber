@@ -19,14 +19,19 @@ Feature: Lookup a definition
 #    When the user posts an order with id '35' petId '1' quantity '2'
 #    Then the order has statusCode '400'
 
+  Scenario: get inventory by id simple
+    Given the user has contentType
+    When the user send request 'https://petstore.swagger.io/v2/store/order/3'
+    And the user save response
+    Then the order has status '200'
+
   Scenario: get inventory by id
     Given the user has contentType
-   When the user send request 'https://petstore.swagger.io/v2/store/order/2'
-#   When 'GET' request is sent with City Name parameters
- And the user save response
-   Then the order has status '200'
+    When GET request
+#    And the user save response
+##   Then the order has status '200'
 
-#  Scenario: post inventory by id
+    #  Scenario: post inventory by id
 #    Given the user has baseURL
 #    When the user post order
 ##   Then the order is placed
