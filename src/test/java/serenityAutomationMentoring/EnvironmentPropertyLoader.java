@@ -14,6 +14,26 @@ import java.util.concurrent.atomic.AtomicReference;
 
 public class EnvironmentPropertyLoader {
 
+   // private static EnvironmentPropertyLoader env = new EnvironmentPropertyLoader();
+//    private static Properties properties;
+//
+//    private EnvironmentPropertyLoader() {
+//        properties = new Properties();
+//        String envName = System.getProperty("environment.config");
+//        String pathToConfig = String.format("configs/%s", envName);
+//        try {
+//            properties.load(getClass().getClassLoader().getResourceAsStream(
+//                    pathToConfig));
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//
+//    }
+//
+//    public static String getProperty(final String propName){
+//        return properties.getProperty(propName);
+//    }
+
 
 private static AtomicReference<EnvironmentPropertyLoader> instance = new AtomicReference<>(null);
 

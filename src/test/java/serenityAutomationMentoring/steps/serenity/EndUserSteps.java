@@ -58,8 +58,8 @@ public class EndUserSteps {
     @Step
     public void sendGetRequest() {
         Response response = getOrderByIdRequest();
-        Serenity.setSessionVariable(ACTUAL_RESPONSE_STATUS_CODE).to(String.valueOf(response.getStatusCode()));
-        Serenity.setSessionVariable(ACTUAL_RESPONSE_JSON).to(response.body().asString());
+       // Serenity.setSessionVariable(ACTUAL_RESPONSE_STATUS_CODE).to(String.valueOf(response.getStatusCode()));
+       // Serenity.setSessionVariable(ACTUAL_RESPONSE_JSON).to(response.body().asString());
         System.out.println("8888h---------------");
     }
     // Steps for post
