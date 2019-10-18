@@ -24,14 +24,16 @@ public class GetOrderById {
     }
     public static Response getOrderByIdRequest() {
 
-    //    System.out.println(parameters+" --->>parametrs in GetOrderById class");
-        return rest()
+      System.out.println(" getOrderByIdRequest is started");
+        return
+                rest()
                 .accept(ContentType.JSON)
                 .when()
-              //  .get(String.format(API_REQUEST_URL, getProperty(OPEN_GET_INVENTORY_ENDPOINT), RESOURCE))
-                .get(getProperty("env1.properties"))
+             // .get(String.format(API_REQUEST_URL, getProperty(OPEN_GET_INVENTORY_ENDPOINT), RESOURCE))
+                .get(getProperty("open.get.inventory.endpoint"))
                 .then()
                 .extract().response();
 
     }
+
 }

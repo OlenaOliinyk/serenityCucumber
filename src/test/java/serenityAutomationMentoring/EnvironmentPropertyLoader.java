@@ -55,7 +55,7 @@ private static AtomicReference<EnvironmentPropertyLoader> instance = new AtomicR
     }
 
     private static Properties loadPropertiesFromFile(final String propertyFile) {
-       // Logger.log.info("Reading properties: %s", propertyFile);
+        // Logger.log.info("Reading properties: %s", propertyFile);
         final InputStream inputStream = Optional
                 .ofNullable(EnvironmentPropertyLoader.class.getResourceAsStream("/properties/" + propertyFile)).orElseThrow(
                         () -> new NullPointerException("Unable to open input stream for resource " + propertyFile));
@@ -64,7 +64,7 @@ private static AtomicReference<EnvironmentPropertyLoader> instance = new AtomicR
             props.load(inputStream);
             inputStream.close();
         } catch (IOException e) {
-           // Logger.out.info(e);
+            // Logger.out.info(e);
             throw new IllegalStateException("Unable to load properties from resource " + propertyFile);
         }
         for (final String propertyName : props.stringPropertyNames()) {

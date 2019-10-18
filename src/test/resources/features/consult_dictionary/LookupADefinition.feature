@@ -28,8 +28,8 @@ Feature: Lookup a definition
   Scenario: get inventory by id
     Given the user has contentType
     When GET request
-#    And the user save response
-##   Then the order has status '200'
+    And the user save response
+    Then the order has status '200'
 
     #  Scenario: post inventory by id
 #    Given the user has baseURL
