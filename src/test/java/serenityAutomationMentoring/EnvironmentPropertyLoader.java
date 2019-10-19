@@ -1,7 +1,8 @@
 package serenityAutomationMentoring;
 
+import org.apache.log4j.Logger;
 
-
+//import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import serenityAutomationMentoring.properties.PropertiesNames;
 
@@ -13,29 +14,13 @@ import java.util.concurrent.atomic.AtomicReference;
 
 
 public class EnvironmentPropertyLoader {
-
-   // private static EnvironmentPropertyLoader env = new EnvironmentPropertyLoader();
-//    private static Properties properties;
-//
-//    private EnvironmentPropertyLoader() {
-//        properties = new Properties();
-//        String envName = System.getProperty("environment.config");
-//        String pathToConfig = String.format("configs/%s", envName);
-//        try {
-//            properties.load(getClass().getClassLoader().getResourceAsStream(
-//                    pathToConfig));
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//
-//    }
-//
-//    public static String getProperty(final String propName){
-//        return properties.getProperty(propName);
-//    }
+    private static Logger log = org.apache.log4j.Logger.getLogger(EnvironmentPropertyLoader.class);
 
 
-private static AtomicReference<EnvironmentPropertyLoader> instance = new AtomicReference<>(null);
+   // private static Logger log = LoggerFactory.getLogger(EnvironmentPropertyLoader.class);
+
+
+    private static AtomicReference<EnvironmentPropertyLoader> instance = new AtomicReference<>(null);
 
     private Properties properties = new Properties();
 
@@ -55,7 +40,7 @@ private static AtomicReference<EnvironmentPropertyLoader> instance = new AtomicR
     }
 
     private static Properties loadPropertiesFromFile(final String propertyFile) {
-       // Logger.log.info("Reading properties: %s", propertyFile);
+        log.info("Reading properties: "+ propertyFile);
         final InputStream inputStream = Optional
                 .ofNullable(EnvironmentPropertyLoader.class.getResourceAsStream("/properties/" + propertyFile)).orElseThrow(
                         () -> new NullPointerException("Unable to open input stream for resource " + propertyFile));
@@ -64,7 +49,8 @@ private static AtomicReference<EnvironmentPropertyLoader> instance = new AtomicR
             props.load(inputStream);
             inputStream.close();
         } catch (IOException e) {
-           // Logger.out.info(e);
+            //   Logger.log.info(e);
+
             throw new IllegalStateException("Unable to load properties from resource " + propertyFile);
         }
         for (final String propertyName : props.stringPropertyNames()) {
