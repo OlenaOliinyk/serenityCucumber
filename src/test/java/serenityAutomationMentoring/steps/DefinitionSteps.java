@@ -21,20 +21,14 @@ public class DefinitionSteps {
         endUserSteps.givenGet();
     }
 
-    @When("the user send request '(.*)'")
-    public void whenGetForSimple(final String sendGetResponse) {
-        endUserSteps.whenGetSimpleTest(sendGetResponse);
-    }
+
 
     @When("GET request")
     public void whenGetForGetInventory() {
         endUserSteps.whenSendGetRequestForInventory();
     }
 
-//    @And("the user save response")
-//    public void saveResponse() {
-//        endUserSteps.andUserSaveResponceForSimple("And the user save response with Status code");
-//    }
+
 
     @And("the user save response from property")
     public void saveResponseForInventory() {

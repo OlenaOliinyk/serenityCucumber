@@ -42,14 +42,7 @@ public class EndUserSteps {
                 .accept(ContentType.JSON);
     }
 
-    @Step
-    //step for simple when url send in feature file
-    public void whenGetSimpleTest(final String sendGetResponse){
-        System.out.println(sendGetResponse+" get request and then().log().body() in response");
-        when()
-                .get(sendGetResponse).then().log().body();
 
-    }
     @Step
     public void whenSendGetRequestForInventory() {
         System.out.println("whenSendGetRequestForInventory is started");
@@ -95,12 +88,6 @@ public class EndUserSteps {
 
     }
 
-//    @Step
-//    public void andUserSaveResponceForSimple(final String parameters) {
-//        Response response = getOrderByIdRequestSimple(parameters);
-//        Serenity.setSessionVariable(ACTUAL_RESPONSE_STATUS_CODE).to(String.valueOf(response.getStatusCode()));
-//        Serenity.setSessionVariable(ACTUAL_RESPONSE_JSON).to(response.body().asString());
-//    }
     @Step
     public void andUserSaveResponceForInventory() {
         Response response = getOrderByIdRequest();
