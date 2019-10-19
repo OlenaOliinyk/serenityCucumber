@@ -17,7 +17,7 @@ public class EnvironmentPropertyLoader {
     private static Logger log = org.apache.log4j.Logger.getLogger(EnvironmentPropertyLoader.class);
 
 
-    //  private static Logger log = LoggerFactory.getLogger(EnvironmentPropertyLoader.class);
+   // private static Logger log = LoggerFactory.getLogger(EnvironmentPropertyLoader.class);
 
 
     private static AtomicReference<EnvironmentPropertyLoader> instance = new AtomicReference<>(null);

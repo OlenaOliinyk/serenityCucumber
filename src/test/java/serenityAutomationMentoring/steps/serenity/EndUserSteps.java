@@ -9,17 +9,14 @@ import net.thucydides.core.annotations.Step;
 
 import static io.restassured.RestAssured.*;
 import static net.serenitybdd.rest.SerenityRest.rest;
-import static org.hamcrest.MatcherAssert.assertThat;
+
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.core.Is.is;
 import static serenityAutomationMentoring.TestSessionVariables.*;
 import static serenityAutomationMentoring.steps.GetOrderById.getOrderByIdRequest;
-import static serenityAutomationMentoring.steps.GetOrderById.getOrderByIdRequestSimple;
+//import static serenityAutomationMentoring.steps.GetOrderById.getOrderByIdRequestSimple;
 
 public class EndUserSteps {
-
-
-  //  EnvironmentPropertyLoader properties = new EnvironmentPropertyLoader();
 
     private static final String POST_BODY = "{ \"id\": 35, \"petId\": 1, \"quantity\": 1, \"shipDate\": \"2019-08-05T13:40:02.396Z\", \"status\": \"placed\", \"complete\": false}";
     // private static final String POST_BODY = "{ \"id\": %s, \"petId\": %s, \"quantity\": %s, \"shipDate\": \"2019-08-05T13:40:02.396Z\", \"status\": \"placed\", \"complete\": false}";
@@ -37,7 +34,6 @@ public class EndUserSteps {
                 .then().extract().statusCode();
         Assert.assertEquals("StatusCode",200,status);
 
-        System.out.println("--------------------------");
     }
 
     @Step
@@ -48,20 +44,19 @@ public class EndUserSteps {
 
     @Step
     //step for simple when url send in feature file
-    public void whenGet(final String sendGetResponse){
-
-                when()
+    public void whenGetSimpleTest(final String sendGetResponse){
+        System.out.println(sendGetResponse+" get request and then().log().body() in response");
+        when()
                 .get(sendGetResponse).then().log().body();
-        System.out.println(sendGetResponse+" get response" );
 
     }
     @Step
-    public void sendGetRequest() {
-        System.out.println("sendGetRequest is started");
+    public void whenSendGetRequestForInventory() {
+        System.out.println("whenSendGetRequestForInventory is started");
         Response response = getOrderByIdRequest();
-       Serenity.setSessionVariable(ACTUAL_RESPONSE_STATUS_CODE).to(String.valueOf(response.getStatusCode()));
+        Serenity.setSessionVariable(ACTUAL_RESPONSE_STATUS_CODE).to(String.valueOf(response.getStatusCode()));
         Serenity.setSessionVariable(ACTUAL_RESPONSE_JSON).to(response.body().asString());
-        System.out.println("8888h---------------");
+
     }
     // Steps for post
     @Step
@@ -84,7 +79,6 @@ public class EndUserSteps {
     @Step
     public void postOrder(final int id, final int petId, final int quantity) {
 
-
         System.out.println(rest()
                 .accept(ContentType.JSON)
                 .when()
@@ -101,20 +95,26 @@ public class EndUserSteps {
 
     }
 
-
+//    @Step
+//    public void andUserSaveResponceForSimple(final String parameters) {
+//        Response response = getOrderByIdRequestSimple(parameters);
+//        Serenity.setSessionVariable(ACTUAL_RESPONSE_STATUS_CODE).to(String.valueOf(response.getStatusCode()));
+//        Serenity.setSessionVariable(ACTUAL_RESPONSE_JSON).to(response.body().asString());
+//    }
     @Step
-    public void andUserSaveResponce(final String parameters) {
-        Response response = getOrderByIdRequestSimple(parameters);
+    public void andUserSaveResponceForInventory() {
+        Response response = getOrderByIdRequest();
         Serenity.setSessionVariable(ACTUAL_RESPONSE_STATUS_CODE).to(String.valueOf(response.getStatusCode()));
-         Serenity.setSessionVariable(ACTUAL_RESPONSE_JSON).to(response.body().asString());
-        System.out.println(ACTUAL_RESPONSE_STATUS_CODE+" actualt status");
+        Serenity.setSessionVariable(ACTUAL_RESPONSE_JSON).to(response.body().asString());
     }
+
     @Step
     public void thenGet(final String statusCode) {
         Assert.assertThat(
                 "Wrong status code in response.",
                 Serenity.sessionVariableCalled(ACTUAL_RESPONSE_STATUS_CODE).toString(),
                 is(statusCode));
-        System.out.println(statusCode+" then get");
+        System.out.println(statusCode+": status code is expected");
+        System.out.println("--------------Test is completed");
     }
 }
