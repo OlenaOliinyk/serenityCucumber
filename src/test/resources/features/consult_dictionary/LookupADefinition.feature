@@ -20,19 +20,23 @@ Feature: Lookup a definition
 #    Then the order has statusCode '400'
 
 
-  Scenario: get inventory positive test
+#  Scenario: get inventory positive test
+#    Given the user has contentType
+#    When the user GET request
+#    And the user save response from property
+#    Then the order has status '200'
+
+  Scenario Outline: get inventory negative test
     Given the user has contentType
     When the user GET request
     And the user save response from property
-    Then the order has status '200'
+    Then the order has status '<statusCode>'
 
-  Scenario: get inventory negative test
-    Given the user has contentType
-    When the user GET request
-    And the user save response from property
-    Then the order has status '404'
-
-
+    Examples:
+      | statusCode |
+      | 200        |
+      | 404        |
+      | 405        |
 
     #  Scenario: post inventory by id
 #    Given the user has baseURL
