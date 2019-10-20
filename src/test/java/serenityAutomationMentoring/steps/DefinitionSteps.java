@@ -17,15 +17,14 @@ public class DefinitionSteps {
 
     @Given("the user has contentType")
     public void givenGetMethod() {
-        //endUserSteps.comonRest();
         endUserSteps.givenGet();
     }
 
 
 
-    @When("GET request")
-    public void whenGetForGetInventory() {
-        endUserSteps.whenSendGetRequestForInventory();
+    @When("the user GET request")
+    public void whenGetForPositiveInventory() {
+        endUserSteps.whenSendGetPositiveRequest();
     }
 
 
@@ -34,6 +33,7 @@ public class DefinitionSteps {
     public void saveResponseForInventory() {
         endUserSteps.andUserSaveResponceForInventory();
     }
+
 
     @When("the user posts an order with id '(.*)' petId '(.*)' quantity '(.*)'")
     public void placeOrder(final int id, final int petId, final int quantity) {

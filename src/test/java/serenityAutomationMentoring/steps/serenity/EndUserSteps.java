@@ -13,8 +13,9 @@ import static net.serenitybdd.rest.SerenityRest.rest;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.core.Is.is;
 import static serenityAutomationMentoring.TestSessionVariables.*;
-import static serenityAutomationMentoring.steps.GetOrderById.getOrderByIdRequest;
-//import static serenityAutomationMentoring.steps.GetOrderById.getOrderByIdRequestSimple;
+
+import static serenityAutomationMentoring.steps.GetOrderById.getOrderPositiveRequest;
+
 
 public class EndUserSteps {
 
@@ -22,19 +23,6 @@ public class EndUserSteps {
     // private static final String POST_BODY = "{ \"id\": %s, \"petId\": %s, \"quantity\": %s, \"shipDate\": \"2019-08-05T13:40:02.396Z\", \"status\": \"placed\", \"complete\": false}";
     public static final String ACTUAL_RESPONSE_STATUS_CODE = "actual.response.status.code";
 
-    @Step
-    // common Step for rest
-    public void comonRest() {
-
-        int status = given()
-                .accept(ContentType.JSON)
-                .when()
-                //.get("https://petstore.swagger.io/v2/store/order/2")
-                .get()
-                .then().extract().statusCode();
-        Assert.assertEquals("StatusCode",200,status);
-
-    }
 
     @Step
     public void  givenGet(){
@@ -44,13 +32,16 @@ public class EndUserSteps {
 
 
     @Step
-    public void whenSendGetRequestForInventory() {
-        System.out.println("whenSendGetRequestForInventory is started");
-        Response response = getOrderByIdRequest();
+    public void whenSendGetPositiveRequest() {
+        System.out.println("send request is started");
+        Response response = getOrderPositiveRequest();
         Serenity.setSessionVariable(ACTUAL_RESPONSE_STATUS_CODE).to(String.valueOf(response.getStatusCode()));
         Serenity.setSessionVariable(ACTUAL_RESPONSE_JSON).to(response.body().asString());
 
     }
+
+
+
     // Steps for post
     @Step
     public void givenPost() {
@@ -90,7 +81,7 @@ public class EndUserSteps {
 
     @Step
     public void andUserSaveResponceForInventory() {
-        Response response = getOrderByIdRequest();
+        Response response = getOrderPositiveRequest();
         Serenity.setSessionVariable(ACTUAL_RESPONSE_STATUS_CODE).to(String.valueOf(response.getStatusCode()));
         Serenity.setSessionVariable(ACTUAL_RESPONSE_JSON).to(response.body().asString());
     }

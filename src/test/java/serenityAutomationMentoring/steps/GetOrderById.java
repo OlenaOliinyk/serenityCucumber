@@ -8,16 +8,16 @@ import static serenityAutomationMentoring.EnvironmentPropertyLoader.getProperty;
 
 public class GetOrderById {
 
-    public static Response getOrderByIdRequest() {
+    public static Response getOrderPositiveRequest() {
 
-      System.out.println(" define what a property to use");
+        System.out.println(" define what a property to use");
         return
                 rest()
-                .accept(ContentType.JSON)
-                .when()
-                .get(getProperty("open.get.inventory.endpoint"))
-                .then()
-                .extract().response();
+                        .accept(ContentType.JSON)
+                        .when()
+                        .get(getProperty("open.get.inventory.endpoint"))
+                        .then()
+                        .extract().response();
 
     }
 
