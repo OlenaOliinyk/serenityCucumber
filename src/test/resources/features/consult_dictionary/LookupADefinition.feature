@@ -22,8 +22,8 @@ Feature: Lookup a definition
       | 404        |
       | 405        |
 
-#  Scenario: Place an order for a pet
-#    Given the user has contentType
-#    When the user posts an order with id '35' petId '1' quantity '2'
-#        And the user save response from property
-#    Then the order has statusCode '400'
+  Scenario: Place an order for a pet
+    Given the user has contentType
+    When the user posts an order
+    And the user save response for post
+    Then the order has status '200'

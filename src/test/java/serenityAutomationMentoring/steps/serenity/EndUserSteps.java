@@ -12,6 +12,7 @@ import static net.serenitybdd.rest.SerenityRest.rest;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.core.Is.is;
+import static serenityAutomationMentoring.EnvironmentPropertyLoader.getProperty;
 import static serenityAutomationMentoring.TestSessionVariables.*;
 
 import static serenityAutomationMentoring.steps.GetOrderById.getOrderPositiveRequest;
@@ -42,10 +43,12 @@ public class EndUserSteps {
     }
 
     @Step
-    public void whenSendPostPositiveRequest(final int id, final int petId, final int quantity) {
-        System.out.println("send request is started");
-        Response response = postOrderPositiveRequest(id,petId,quantity);
-        Serenity.setSessionVariable(ACTUAL_RESPONSE_STATUS_CODE).to(String.valueOf(response.getStatusCode()));
+    public void whenSendPostPositiveRequest() {
+        System.out.println("post request is started");
+
+        Response response = postOrderPositiveRequest();
+        System.out.println(response);
+      Serenity.setSessionVariable(ACTUAL_RESPONSE_STATUS_CODE).to(String.valueOf(response.getStatusCode()));
         Serenity.setSessionVariable(ACTUAL_RESPONSE_JSON).to(response.body().asString());
 
     }
@@ -56,7 +59,12 @@ public class EndUserSteps {
         Serenity.setSessionVariable(ACTUAL_RESPONSE_STATUS_CODE).to(String.valueOf(response.getStatusCode()));
         Serenity.setSessionVariable(ACTUAL_RESPONSE_JSON).to(response.body().asString());
     }
-
+    @Step
+    public void andUserSaveResponceForPostOrder() {
+        Response response = postOrderPositiveRequest();
+        Serenity.setSessionVariable(ACTUAL_RESPONSE_STATUS_CODE).to(String.valueOf(response.getStatusCode()));
+        Serenity.setSessionVariable(ACTUAL_RESPONSE_JSON).to(response.body().asString());
+    }
     @Step
     public void thenGet(final String statusCode) {
         Assert.assertThat(

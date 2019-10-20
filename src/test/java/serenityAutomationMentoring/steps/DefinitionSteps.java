@@ -19,7 +19,8 @@ public class DefinitionSteps {
     public void givenGetMethod() {
         endUserSteps.givenGet();
     }
-    @Given("the user is on the Inventory home page")
+
+
 
 
     @When("the user GET request")
@@ -27,17 +28,28 @@ public class DefinitionSteps {
         endUserSteps.whenSendGetPositiveRequest();
     }
 
-
     @When("the user posts an order with id '(.*)' petId '(.*)' quantity '(.*)'")
-    public void placeOrder(final int id, final int petId, final int quantity) {
-        endUserSteps.whenSendPostPositiveRequest(id, petId, quantity);
+    public void placeOrderW(){
+       //     final int id, final int petId, final int quantity) {
+        endUserSteps.whenSendPostPositiveRequest();
 
     }
 
+    @When("the user posts an order")
+    public void placeOrder(){
+        //     final int id, final int petId, final int quantity) {
+        endUserSteps.whenSendPostPositiveRequest();
 
+    }
     @And("the user save response from property")
     public void saveResponseForInventory() {
         endUserSteps.andUserSaveResponceForInventory();
+        System.out.println("and step works");
+    }
+    @And("the user save response for post")
+    public void saveResponseForPost() {
+        endUserSteps.andUserSaveResponceForPostOrder();
+        System.out.println("and step works for post");
     }
     @Then("the order has status '(.*)'")
     public void thenGetMethod(final String statusCode) {
