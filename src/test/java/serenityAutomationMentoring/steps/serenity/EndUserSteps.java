@@ -15,6 +15,7 @@ import static org.hamcrest.core.Is.is;
 import static serenityAutomationMentoring.TestSessionVariables.*;
 
 import static serenityAutomationMentoring.steps.GetOrderById.getOrderPositiveRequest;
+import static serenityAutomationMentoring.steps.GetOrderById.postOrderPositiveRequest;
 
 
 public class EndUserSteps {
@@ -40,42 +41,12 @@ public class EndUserSteps {
 
     }
 
-
-
-    // Steps for post
     @Step
-    public void givenPost() {
-        System.out.println("post inventory started");
-        given()
-                .contentType("application/json")
-                .baseUri("https://petstore.swagger.io/v2/store")
-                .basePath("/order")
-                .body(POST_BODY)
-                .log().body()
-                .when().post()
-                .then() .body("id",equalTo(35) );
-
-        System.out.println("post inventory finished");
-
-    }
-
-
-    @Step
-    public void postOrder(final int id, final int petId, final int quantity) {
-
-        System.out.println(rest()
-                .accept(ContentType.JSON)
-                .when()
-                .get("https://petstore.swagger.io/v2/store/inventory")
-                .then()
-                .extract().response());
-        System.out.println(rest()
-                .accept(ContentType.JSON)
-                .body(String.format(POST_BODY, id, petId, quantity))
-                .when()
-                .post("https://petstore.swagger.io/v2/store/order")
-                .then()
-                .extract().response());
+    public void whenSendPostPositiveRequest(final int id, final int petId, final int quantity) {
+        System.out.println("send request is started");
+        Response response = postOrderPositiveRequest(id,petId,quantity);
+        Serenity.setSessionVariable(ACTUAL_RESPONSE_STATUS_CODE).to(String.valueOf(response.getStatusCode()));
+        Serenity.setSessionVariable(ACTUAL_RESPONSE_JSON).to(response.body().asString());
 
     }
 

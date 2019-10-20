@@ -19,7 +19,7 @@ public class DefinitionSteps {
     public void givenGetMethod() {
         endUserSteps.givenGet();
     }
-
+    @Given("the user is on the Inventory home page")
 
 
     @When("the user GET request")
@@ -28,19 +28,17 @@ public class DefinitionSteps {
     }
 
 
+    @When("the user posts an order with id '(.*)' petId '(.*)' quantity '(.*)'")
+    public void placeOrder(final int id, final int petId, final int quantity) {
+        endUserSteps.whenSendPostPositiveRequest(id, petId, quantity);
+
+    }
+
 
     @And("the user save response from property")
     public void saveResponseForInventory() {
         endUserSteps.andUserSaveResponceForInventory();
     }
-
-
-    @When("the user posts an order with id '(.*)' petId '(.*)' quantity '(.*)'")
-    public void placeOrder(final int id, final int petId, final int quantity) {
-        endUserSteps.postOrder(id, petId, quantity);
-
-    }
-
     @Then("the order has status '(.*)'")
     public void thenGetMethod(final String statusCode) {
         //принимает на вход значение из фиче файла

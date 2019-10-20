@@ -1,8 +1,6 @@
 package serenityAutomationMentoring;
 
-import org.apache.log4j.Logger;
-
-//import org.slf4j.Logger;
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import serenityAutomationMentoring.properties.PropertiesNames;
 
@@ -14,10 +12,10 @@ import java.util.concurrent.atomic.AtomicReference;
 
 
 public class EnvironmentPropertyLoader {
-    private static Logger log = org.apache.log4j.Logger.getLogger(EnvironmentPropertyLoader.class);
+    //  private static Logger log = org.apache.log4j.Logger.getLogger(EnvironmentPropertyLoader.class);
 
 
-   // private static Logger log = LoggerFactory.getLogger(EnvironmentPropertyLoader.class);
+    private static Logger log = LoggerFactory.getLogger(EnvironmentPropertyLoader.class);
 
 
     private static AtomicReference<EnvironmentPropertyLoader> instance = new AtomicReference<>(null);
@@ -40,7 +38,7 @@ public class EnvironmentPropertyLoader {
     }
 
     private static Properties loadPropertiesFromFile(final String propertyFile) {
-        log.info("Reading properties: "+ propertyFile);
+        log.info("Reading properties: " + propertyFile);
         final InputStream inputStream = Optional
                 .ofNullable(EnvironmentPropertyLoader.class.getResourceAsStream("/properties/" + propertyFile)).orElseThrow(
                         () -> new NullPointerException("Unable to open input stream for resource " + propertyFile));
