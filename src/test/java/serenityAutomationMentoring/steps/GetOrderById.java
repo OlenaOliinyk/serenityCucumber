@@ -11,7 +11,7 @@ import static serenityAutomationMentoring.EnvironmentPropertyLoader.getProperty;
 public class GetOrderById {
     // private static final String POST_BODY = "{ \"id\": %s, \"petId\": %s, \"quantity\": %s, \"shipDate\": \"2019-08-05T13:40:02.396Z\", \"status\": \"placed\", \"complete\": false}";
     private static final String POST_BODY = "{ \"id\": 35, \"petId\": 1, \"quantity\": 1, \"shipDate\": \"2019-08-05T13:40:02.396Z\", \"status\": \"placed\", \"complete\": false}";
-
+    private static final String RESOURCE = "/order";
 
     public static Response getOrderPositiveRequest() {
 
@@ -22,6 +22,7 @@ public class GetOrderById {
                         .when()
                         .get(getProperty("open.get.inventory.endpoint"))
                         .then()
+                        .log().body()
                         .extract().response();
 
     }
@@ -34,10 +35,10 @@ public class GetOrderById {
         return
                 given()
                        .contentType("application/json")
-                        .baseUri("https://petstore.swagger.io/v2/store")
-                        .basePath("/order")
-                        .body("{ \"id\": 35, \"petId\": 1, \"quantity\": 1, \"shipDate\": \"2019-08-05T13:40:02.396Z\", \"status\": \"placed\", \"complete\": false}")
-                        .log().body()
+                        .baseUri(getProperty("open.get.inventory.endpoint"))
+                        .basePath(RESOURCE)
+                        .body(POST_BODY)
+                         .log().body()
                         .when().post()
                         .then().extract().response();
 
