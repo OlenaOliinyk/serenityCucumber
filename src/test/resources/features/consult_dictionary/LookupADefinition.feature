@@ -4,23 +4,23 @@ Feature: Lookup a definition
   I want to verify responses are corresponded
 
 
-  Scenario: get inventory positive test : run test with -Denv.config.file=env1.properties
-    Given the user has contentType
-    When the user GET request
-    And the user save response from property
-    Then the order has status '200'
-
-  Scenario: get inventory negative test with wrong id : run test with -Denv.config.file=env2.properties
-    Given the user has contentType
-    When the user GET request
-    And the user save response from property
-    Then the order has status '404'
-
-  Scenario: get inventory negative test with missed id : run test with -Denv.config.file=env3.properties
-    Given the user has contentType
-    When the user GET request
-    And the user save response from property
-    Then the order has status '405'
+#  Scenario: get inventory positive test : run test with -Denv.config.file=env1.properties
+#    Given the user has contentType
+#    When the user GET request
+#    And the user save response from property
+#    Then the order has status '200'
+#
+#  Scenario: get inventory negative test with wrong id : run test with -Denv.config.file=env2.properties
+#    Given the user has contentType
+#    When the user GET request
+#    And the user save response from property
+#    Then the order has status '404'
+#
+#  Scenario: get inventory negative test with missed id : run test with -Denv.config.file=env3.properties
+#    Given the user has contentType
+#    When the user GET request
+#    And the user save response from property
+#    Then the order has status '405'
 
 #  Scenario Outline: get inventory negative test
 #    Given the user has contentType
@@ -36,7 +36,8 @@ Feature: Lookup a definition
 
   Scenario: Place an order for a pet : run test with -Denv.config.file=env4.properties
     Given the user has contentType
-    When the user posts an order
+#   When the user posts an order
+   When the user posts id '35' petId '1' quantity '1'
     And the user save response for post
     Then the order has status '200'
 #   And the order has id '35'

@@ -13,9 +13,7 @@ import static net.serenitybdd.rest.SerenityRest.rest;
 import static org.hamcrest.Matchers.equalTo;
 
 import static org.hamcrest.core.Is.is;
-
-import static serenityAutomationMentoring.steps.GetOrderById.getOrderPositiveRequest;
-import static serenityAutomationMentoring.steps.GetOrderById.postOrderPositiveRequest;
+import static serenityAutomationMentoring.steps.GetOrderById.*;
 
 
 public class EndUserSteps {
@@ -42,6 +40,15 @@ public class EndUserSteps {
     public void sendPostRequestAction() {
 
         Response response = postOrderPositiveRequest();
+        Serenity.setSessionVariable(ACTUAL_RESPONSE_STATUS_CODE).to(String.valueOf(response.getStatusCode()));
+        Serenity.setSessionVariable(ACTUAL_RESPONSE_JSON).to(response.body().asString());
+        Serenity.setSessionVariable(ACTUAL_RESPONSE_ID).to(String.valueOf(response.getBody()));
+
+    }
+    @Step
+    public void sendPostRequestWithParametrsAction(final int id, final int petId, final int quantity) {
+
+        Response response = postOrderPositiveRequestWithParametrs(id,petId,quantity);
         Serenity.setSessionVariable(ACTUAL_RESPONSE_STATUS_CODE).to(String.valueOf(response.getStatusCode()));
         Serenity.setSessionVariable(ACTUAL_RESPONSE_JSON).to(response.body().asString());
         Serenity.setSessionVariable(ACTUAL_RESPONSE_ID).to(String.valueOf(response.getBody()));

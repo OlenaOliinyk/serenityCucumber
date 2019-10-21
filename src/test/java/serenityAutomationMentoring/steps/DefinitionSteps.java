@@ -30,10 +30,10 @@ public class DefinitionSteps {
     }
 
     //skipped now
-    @When("the user posts an order with id '(.*)' petId '(.*)' quantity '(.*)'")
+    @When("the user posts id '(.*)' petId '(.*)' quantity '(.*)'")
     public void whenSendPostRequestWithParameters(final int id, final int petId, final int quantity) {
         //add action with parameters
-        endUserSteps.sendPostRequestAction();
+        endUserSteps.sendPostRequestWithParametrsAction(id,petId,quantity);
     }
 
 
