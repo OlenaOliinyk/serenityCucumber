@@ -11,9 +11,8 @@ import static io.restassured.RestAssured.*;
 import static net.serenitybdd.rest.SerenityRest.rest;
 
 import static org.hamcrest.Matchers.equalTo;
+
 import static org.hamcrest.core.Is.is;
-import static serenityAutomationMentoring.EnvironmentPropertyLoader.getProperty;
-import static serenityAutomationMentoring.TestSessionVariables.*;
 
 import static serenityAutomationMentoring.steps.GetOrderById.getOrderPositiveRequest;
 import static serenityAutomationMentoring.steps.GetOrderById.postOrderPositiveRequest;
@@ -22,6 +21,8 @@ import static serenityAutomationMentoring.steps.GetOrderById.postOrderPositiveRe
 public class EndUserSteps {
 
     public static final String ACTUAL_RESPONSE_STATUS_CODE = "actual.response.status.code";
+    public static final String ACTUAL_RESPONSE_JSON = "actual.response.json";
+    public static final String ACTUAL_RESPONSE_ID = "actual.response.id";
 
     @Step
     public void givenAction() {
@@ -31,7 +32,7 @@ public class EndUserSteps {
 
     @Step
     public void sendGetRequestAction() {
-        System.out.println("send request is started");
+
         Response response = getOrderPositiveRequest();
         Serenity.setSessionVariable(ACTUAL_RESPONSE_STATUS_CODE).to(String.valueOf(response.getStatusCode()));
         Serenity.setSessionVariable(ACTUAL_RESPONSE_JSON).to(response.body().asString());
@@ -39,11 +40,11 @@ public class EndUserSteps {
 
     @Step
     public void sendPostRequestAction() {
-        System.out.println("post request is started");
+
         Response response = postOrderPositiveRequest();
-        System.out.println(response+" response in sendPostRequestAction");
         Serenity.setSessionVariable(ACTUAL_RESPONSE_STATUS_CODE).to(String.valueOf(response.getStatusCode()));
         Serenity.setSessionVariable(ACTUAL_RESPONSE_JSON).to(response.body().asString());
+        Serenity.setSessionVariable(ACTUAL_RESPONSE_ID).to(String.valueOf(response.getBody()));
 
     }
 
@@ -57,8 +58,10 @@ public class EndUserSteps {
     @Step
     public void saveResponseForPostAction() {
         Response response = postOrderPositiveRequest();
-        Serenity.setSessionVariable(ACTUAL_RESPONSE_STATUS_CODE).to(String.valueOf(response.getStatusCode()));
         Serenity.setSessionVariable(ACTUAL_RESPONSE_JSON).to(response.body().asString());
+        Serenity.setSessionVariable(ACTUAL_RESPONSE_STATUS_CODE).to(String.valueOf(response.getStatusCode()));
+        Serenity.setSessionVariable(ACTUAL_RESPONSE_ID).to(String.valueOf(response.getBody()));
+
     }
 
     @Step
@@ -68,15 +71,14 @@ public class EndUserSteps {
                 Serenity.sessionVariableCalled(ACTUAL_RESPONSE_STATUS_CODE).toString(),
                 is(statusCode));
         System.out.println(statusCode + ": status code is expected");
-        System.out.println("--------------Test is completed");
     }
 
     @Step
     public void verifyIdAction(final int id) {
         Assert.assertThat(
-                "Wrong status code in response.",
-                Serenity.sessionVariableCalled(ACTUAL_RESPONSE_STATUS_CODE).toString(),
-                is(id));
+                "Wrong id in response.",
+                Serenity.sessionVariableCalled(ACTUAL_RESPONSE_ID).toString(),
+                equalTo(id));
         System.out.println(id + ": status code is expected");
         System.out.println("--------------Test is completed");
     }
