@@ -28,9 +28,8 @@ public class GetOrderById {
     }
 
     public static Response postOrderPositiveRequest() {
-        //final int id, final int petId, final int quantity) {
-        System.out.println("response class is started");
 
+        System.out.println("response class is started");
 
         return
                 given()

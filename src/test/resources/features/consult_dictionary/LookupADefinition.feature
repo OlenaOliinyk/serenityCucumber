@@ -27,3 +27,4 @@ Feature: Lookup a definition
     When the user posts an order
     And the user save response for post
     Then the order has status '200'
+#    And the order has id '35'

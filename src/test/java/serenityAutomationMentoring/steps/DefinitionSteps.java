@@ -14,48 +14,50 @@ public class DefinitionSteps {
     @Steps
     EndUserSteps endUserSteps;
 
-
     @Given("the user has contentType")
-    public void givenGetMethod() {
-        endUserSteps.givenGet();
+    public void given() {
+        endUserSteps.givenAction();
     }
-
-
-
 
     @When("the user GET request")
-    public void whenGetForPositiveInventory() {
-        endUserSteps.whenSendGetPositiveRequest();
-    }
-
-    @When("the user posts an order with id '(.*)' petId '(.*)' quantity '(.*)'")
-    public void placeOrderW(){
-       //     final int id, final int petId, final int quantity) {
-        endUserSteps.whenSendPostPositiveRequest();
-
+    public void whenSendGetRequest() {
+        endUserSteps.sendGetRequestAction();
     }
 
     @When("the user posts an order")
-    public void placeOrder(){
-        //     final int id, final int petId, final int quantity) {
-        endUserSteps.whenSendPostPositiveRequest();
+    public void whenSendPostRequest() {
+        endUserSteps.sendPostRequestAction();
+    }
 
+    //skipped now
+    @When("the user posts an order with id '(.*)' petId '(.*)' quantity '(.*)'")
+    public void whenSendPostRequestWithParameters(final int id, final int petId, final int quantity) {
+        //add action with parameters
+        endUserSteps.sendPostRequestAction();
     }
+
+
     @And("the user save response from property")
-    public void saveResponseForInventory() {
-        endUserSteps.andUserSaveResponceForInventory();
-        System.out.println("and step works");
+    public void andSaveResponseForGet() {
+        endUserSteps.saveResponseForGetAction();
+        System.out.println("and step works for get");
     }
+
     @And("the user save response for post")
-    public void saveResponseForPost() {
-        endUserSteps.andUserSaveResponceForPostOrder();
+    public void andSaveResponseForPost() {
+        endUserSteps.saveResponseForPostAction();
         System.out.println("and step works for post");
     }
+
     @Then("the order has status '(.*)'")
-    public void thenGetMethod(final String statusCode) {
+    public void thenVerifyStatusCode(final String statusCode) {
         //принимает на вход значение из фиче файла
-        endUserSteps.thenGet(statusCode);
+        endUserSteps.verifyStatusCodeAction(statusCode);
     }
 
+    @Then("the order has id '(.*)'")
+    public void andThenVerifyId(final int id) {
+        endUserSteps.verifyIdAction(id);
+    }
 
 }
