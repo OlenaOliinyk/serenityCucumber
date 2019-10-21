@@ -10,9 +10,9 @@ import static serenityAutomationMentoring.EnvironmentPropertyLoader.getProperty;
 
 public class GetOrderById {
     private static final String POST_BODY = "{ \"id\": %s, \"petId\": %s, \"quantity\": %s, \"shipDate\": \"2019-08-05T13:40:02.396Z\", \"status\": \"placed\", \"complete\": false}";
-   // private static final String POST_BODY = "{ \"id\": 35, \"petId\": 1, \"quantity\": 1, \"shipDate\": \"2019-08-05T13:40:02.396Z\", \"status\": \"placed\", \"complete\": false}";
+    private static final String POST_FULLBODY = "{ \"id\": 35, \"petId\": 1, \"quantity\": 1, \"shipDate\": \"2019-08-05T13:40:02.396Z\", \"status\": \"placed\", \"complete\": false}";
     private static final String RESOURCE = "/order";
-    private static final String API_POST_URL = "%s,%s,%s,%s";
+
     public static Response getOrderPositiveRequest() {
 
         System.out.println(" define what a property to use for get");
@@ -36,7 +36,7 @@ public class GetOrderById {
                        .contentType("application/json")
                         .baseUri(getProperty("open.get.inventory.endpoint"))
                         .basePath(RESOURCE)
-                        .body(POST_BODY)
+                        .body(POST_FULLBODY)
                          .log().body()
                         .when().post()
                         .then().extract().response();
@@ -51,8 +51,7 @@ public class GetOrderById {
                         .contentType("application/json")
                         .baseUri(getProperty("open.get.inventory.endpoint"))
                         .basePath(RESOURCE)
-                        .body(String.format(API_POST_URL,id,petId,quantity,POST_BODY))
-
+                        .body(String.format(POST_BODY,id,petId,quantity))
                         .log().body()
                         .when().post()
                         .then().extract().response();

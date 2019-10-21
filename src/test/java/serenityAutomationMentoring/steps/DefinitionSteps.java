@@ -29,7 +29,6 @@ public class DefinitionSteps {
         endUserSteps.sendPostRequestAction();
     }
 
-    //skipped now
     @When("the user posts id '(.*)' petId '(.*)' quantity '(.*)'")
     public void whenSendPostRequestWithParameters(final int id, final int petId, final int quantity) {
         //add action with parameters
