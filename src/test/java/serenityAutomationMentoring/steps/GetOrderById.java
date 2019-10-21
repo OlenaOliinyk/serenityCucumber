@@ -3,33 +3,45 @@ package serenityAutomationMentoring.steps;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 
+import static net.serenitybdd.rest.SerenityRest.given;
 import static net.serenitybdd.rest.SerenityRest.rest;
+import static net.serenitybdd.rest.SerenityRest.post;
 import static serenityAutomationMentoring.EnvironmentPropertyLoader.getProperty;
 
 public class GetOrderById {
+    // private static final String POST_BODY = "{ \"id\": %s, \"petId\": %s, \"quantity\": %s, \"shipDate\": \"2019-08-05T13:40:02.396Z\", \"status\": \"placed\", \"complete\": false}";
+    private static final String POST_BODY = "{ \"id\": 35, \"petId\": 1, \"quantity\": 1, \"shipDate\": \"2019-08-05T13:40:02.396Z\", \"status\": \"placed\", \"complete\": false}";
+    private static final String RESOURCE = "/order";
 
+    public static Response getOrderPositiveRequest() {
 
-//    public static Response getOrderByIdRequestSimple(final String parameters) {
-//
-//        System.out.println(parameters+" --->>parametrs in GetOrderById class");
-//        return rest()
-//                .accept(ContentType.JSON)
-//                .when()
-//               .get("https://petstore.swagger.io/v2/store/order/3")
-//                .then()
-//                .extract().response();
-//    }
-    public static Response getOrderByIdRequest() {
-
-      System.out.println(" define what a property to use");
+        System.out.println(" define what a property to use for get");
         return
                 rest()
-                .accept(ContentType.JSON)
-                .when()
-                .get(getProperty("open.get.inventory.endpoint"))
-                .then()
-                .extract().response();
+                        .accept(ContentType.JSON)
+                        .when()
+                        .get(getProperty("open.get.inventory.endpoint"))
+                        .then()
+                        .log().body()
+                        .extract().response();
 
     }
 
+    public static Response postOrderPositiveRequest() {
+        //final int id, final int petId, final int quantity) {
+        System.out.println("response class is started");
+
+
+        return
+                given()
+                       .contentType("application/json")
+                        .baseUri(getProperty("open.get.inventory.endpoint"))
+                        .basePath(RESOURCE)
+                        .body(POST_BODY)
+                         .log().body()
+                        .when().post()
+                        .then().extract().response();
+
+
+    }
 }

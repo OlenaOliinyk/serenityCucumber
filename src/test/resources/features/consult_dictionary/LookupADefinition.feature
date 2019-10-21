@@ -3,35 +3,27 @@ Feature: Lookup a definition
   As an English student
   I want to look up word definitions
 
-#  Scenario: Looking up the definition of 'apple'
-#    Given the user is on the Wikionary home page
-#    When the user looks up the definition of the word 'apple'
-#    Then they should see the definition 'A common, round fruit produced by the tree Malus domestica, cultivated in temperate climates.'
-#
-#  Scenario: Looking up the definition of 'pear'
-#    Given the user is on the Wikionary home page
-#    When the user looks up the definition of the word 'pear'
-#    Then they should see the definition 'An edible fruit produced by the pear tree, similar to an apple but elongated towards the stem.'
 
-
-#  Scenario: Place an order for a pet
-#    Given the user is on the Inventory home page
-#    When the user posts an order with id '35' petId '1' quantity '2'
-#    Then the order has statusCode '400'
-
-#  Scenario: get inventory by id simple
+#  Scenario: get inventory positive test
 #    Given the user has contentType
-#    When the user send request 'https://petstore.swagger.io/v2/store/order/3'
-#    And the user save response
+#    When the user GET request
+#    And the user save response from property
 #    Then the order has status '200'
 
-  Scenario: get inventory by id
+  Scenario Outline: get inventory negative test
     Given the user has contentType
-    When GET request
+    When the user GET request
     And the user save response from property
-  Then the order has status '200'
+    Then the order has status '<statusCode>'
 
-    #  Scenario: post inventory by id
-#    Given the user has baseURL
-#    When the user post order
-##   Then the order is placed
+    Examples:
+      | statusCode |
+      | 200        |
+      | 404        |
+      | 405        |
+
+  Scenario: Place an order for a pet
+    Given the user has contentType
+    When the user posts an order
+    And the user save response for post
+    Then the order has status '200'
