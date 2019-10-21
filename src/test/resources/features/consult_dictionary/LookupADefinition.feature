@@ -40,3 +40,9 @@ Feature: Lookup a definition
     And the user save response for post
     Then the order has status '200'
 #   And the order has id '35'
+
+  Scenario: Place an order for a pet : run test with -Denv.config.file=env4.properties
+    Given the user has contentType
+    When the user posts id '45' petId '2' quantity '2'
+    Then the order has status '200'
+#   And the order has id '35'

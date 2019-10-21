@@ -9,8 +9,8 @@ import static net.serenitybdd.rest.SerenityRest.post;
 import static serenityAutomationMentoring.EnvironmentPropertyLoader.getProperty;
 
 public class GetOrderById {
-    // private static final String POST_BODY = "{ \"id\": %s, \"petId\": %s, \"quantity\": %s, \"shipDate\": \"2019-08-05T13:40:02.396Z\", \"status\": \"placed\", \"complete\": false}";
-    private static final String POST_BODY = "{ \"id\": 35, \"petId\": 1, \"quantity\": 1, \"shipDate\": \"2019-08-05T13:40:02.396Z\", \"status\": \"placed\", \"complete\": false}";
+    private static final String POST_BODY = "{ \"id\": %s, \"petId\": %s, \"quantity\": %s, \"shipDate\": \"2019-08-05T13:40:02.396Z\", \"status\": \"placed\", \"complete\": false}";
+    private static final String POST_FULLBODY = "{ \"id\": 35, \"petId\": 1, \"quantity\": 1, \"shipDate\": \"2019-08-05T13:40:02.396Z\", \"status\": \"placed\", \"complete\": false}";
     private static final String RESOURCE = "/order";
 
     public static Response getOrderPositiveRequest() {
@@ -36,8 +36,23 @@ public class GetOrderById {
                        .contentType("application/json")
                         .baseUri(getProperty("open.get.inventory.endpoint"))
                         .basePath(RESOURCE)
-                        .body(POST_BODY)
+                        .body(POST_FULLBODY)
                          .log().body()
+                        .when().post()
+                        .then().extract().response();
+
+
+    }
+
+    public static Response postOrderPositiveRequestWithParametrs(final int id, final int petId, final int quantity) {
+
+        return
+                given()
+                        .contentType("application/json")
+                        .baseUri(getProperty("open.get.inventory.endpoint"))
+                        .basePath(RESOURCE)
+                        .body(String.format(POST_BODY,id,petId,quantity))
+                        .log().body()
                         .when().post()
                         .then().extract().response();
 
