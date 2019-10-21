@@ -23,6 +23,10 @@ public class DefinitionSteps {
     public void whenSendGetRequest() {
         endUserSteps.sendGetRequestAction();
     }
+    @When("the user sent request '(.*)'")
+    public void whenSendGetRequestWithParam(final int orderId) {
+        endUserSteps.sendGetRequestWithParamAction(orderId);
+    }
 
     @When("the user posts an order")
     public void whenSendPostRequest() {

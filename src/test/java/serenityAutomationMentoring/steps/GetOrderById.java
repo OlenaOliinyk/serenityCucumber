@@ -7,12 +7,13 @@ import static net.serenitybdd.rest.SerenityRest.given;
 import static net.serenitybdd.rest.SerenityRest.rest;
 import static net.serenitybdd.rest.SerenityRest.post;
 import static serenityAutomationMentoring.EnvironmentPropertyLoader.getProperty;
+import static serenityAutomationMentoring.properties.PropertiesNames.OPEN_GET_INVENTORY_ENDPOINT;
 
 public class GetOrderById {
     private static final String POST_BODY = "{ \"id\": %s, \"petId\": %s, \"quantity\": %s, \"shipDate\": \"2019-08-05T13:40:02.396Z\", \"status\": \"placed\", \"complete\": false}";
     private static final String POST_FULLBODY = "{ \"id\": 35, \"petId\": 1, \"quantity\": 1, \"shipDate\": \"2019-08-05T13:40:02.396Z\", \"status\": \"placed\", \"complete\": false}";
     private static final String RESOURCE = "/order";
-
+    private static final String API_REQUEST_URL = "%s/%s";
     public static Response getOrderPositiveRequest() {
 
         System.out.println(" define what a property to use for get");
@@ -41,6 +42,20 @@ public class GetOrderById {
                         .when().post()
                         .then().extract().response();
 
+    }
+
+    public static Response getOrderPositiveRequestWithParam(final int orderId) {
+
+        System.out.println(" define what a property to use for get with parametr");
+        return
+                rest()
+                        .accept(ContentType.JSON)
+                        .when()
+
+                        .get(String.format(API_REQUEST_URL, getProperty(OPEN_GET_INVENTORY_ENDPOINT), orderId))
+                        .then()
+                        .log().body()
+                        .extract().response();
 
     }
 

@@ -35,7 +35,13 @@ public class EndUserSteps {
         Serenity.setSessionVariable(ACTUAL_RESPONSE_STATUS_CODE).to(String.valueOf(response.getStatusCode()));
         Serenity.setSessionVariable(ACTUAL_RESPONSE_JSON).to(response.body().asString());
     }
-
+    @Step
+    public void sendGetRequestWithParamAction(final int orderId) {
+        System.out.println("sent is started");
+        Response response = getOrderPositiveRequestWithParam(orderId);
+        Serenity.setSessionVariable(ACTUAL_RESPONSE_STATUS_CODE).to(String.valueOf(response.getStatusCode()));
+        Serenity.setSessionVariable(ACTUAL_RESPONSE_JSON).to(response.body().asString());
+    }
     @Step
     public void sendPostRequestAction() {
 
