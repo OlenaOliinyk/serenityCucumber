@@ -8,12 +8,15 @@ import static net.serenitybdd.rest.SerenityRest.rest;
 import static net.serenitybdd.rest.SerenityRest.post;
 import static serenityAutomationMentoring.EnvironmentPropertyLoader.getProperty;
 import static serenityAutomationMentoring.properties.PropertiesNames.OPEN_GET_INVENTORY_ENDPOINT;
+import static serenityAutomationMentoring.properties.PropertiesNames.OPEN_POST_ORDER_ENDPOINT;
 
 public class GetOrderById {
     private static final String POST_BODY = "{ \"id\": %s, \"petId\": %s, \"quantity\": %s, \"shipDate\": \"2019-08-05T13:40:02.396Z\", \"status\": \"placed\", \"complete\": false}";
     private static final String POST_FULLBODY = "{ \"id\": 35, \"petId\": 1, \"quantity\": 1, \"shipDate\": \"2019-08-05T13:40:02.396Z\", \"status\": \"placed\", \"complete\": false}";
     private static final String RESOURCE = "/order";
     private static final String API_REQUEST_URL = "%s/%s";
+
+
     public static Response getOrderPositiveRequest() {
 
         System.out.println(" define what a property to use for get");
@@ -21,7 +24,7 @@ public class GetOrderById {
                 rest()
                         .accept(ContentType.JSON)
                         .when()
-                        .get(getProperty("open.get.inventory.endpoint"))
+                        .get(getProperty(OPEN_GET_INVENTORY_ENDPOINT))
                         .then()
                         .log().body()
                         .extract().response();
@@ -35,7 +38,7 @@ public class GetOrderById {
         return
                 given()
                        .contentType("application/json")
-                        .baseUri(getProperty("open.get.inventory.endpoint"))
+                        .baseUri(getProperty(OPEN_POST_ORDER_ENDPOINT))
                         .basePath(RESOURCE)
                         .body(POST_FULLBODY)
                          .log().body()
@@ -64,7 +67,7 @@ public class GetOrderById {
         return
                 given()
                         .contentType("application/json")
-                        .baseUri(getProperty("open.get.inventory.endpoint"))
+                        .baseUri(getProperty(OPEN_POST_ORDER_ENDPOINT))
                         .basePath(RESOURCE)
                         .body(String.format(POST_BODY,id,petId,quantity))
                         .log().body()

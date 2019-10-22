@@ -77,7 +77,6 @@ public class EndUserSteps {
 
     }
 
-
     @Step
     public void verifyStatusCodeAction(final String statusCode) {
         Assert.assertThat(

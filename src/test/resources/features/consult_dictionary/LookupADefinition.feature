@@ -4,18 +4,6 @@ Feature: Lookup a definition
   I want to verify responses are corresponded
 
 
-#  Scenario: get inventory positive test : run test with -Denv.config.file=env1.properties
-#    Given the user has contentType
-#    When the user GET request
-#    And the user save response from property
-#    Then the order has status '200'
-#
-#  Scenario: get inventory negative test with wrong id : run test with -Denv.config.file=env2.properties
-#    Given the user has contentType
-#    When the user GET request
-#    And the user save response from property
-#    Then the order has status '404'
-#
   Scenario: get inventory negative test with missed id : open.get.inventory.endpoint = https://petstore.swagger.io/v2/store/order
     Given the user has contentType
     When the user GET request
