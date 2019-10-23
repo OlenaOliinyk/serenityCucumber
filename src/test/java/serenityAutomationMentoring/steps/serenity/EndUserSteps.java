@@ -10,6 +10,7 @@ import net.thucydides.core.annotations.Step;
 import static io.restassured.RestAssured.*;
 import static net.serenitybdd.rest.SerenityRest.rest;
 
+import static net.serenitybdd.rest.SerenityRest.then;
 import static org.hamcrest.Matchers.equalTo;
 
 import static org.hamcrest.core.Is.is;
@@ -86,13 +87,9 @@ public class EndUserSteps {
         System.out.println(statusCode + ": status code is expected");
     }
 
+
     @Step
     public void verifyIdAction(final int id) {
-        Assert.assertThat(
-                "Wrong id in response.",
-                Serenity.sessionVariableCalled(ACTUAL_RESPONSE_ID).toString(),
-                equalTo(id));
-        System.out.println(id + ": status code is expected");
-        System.out.println("--------------Test is completed");
+        then().body("id",is(id));
     }
 }
