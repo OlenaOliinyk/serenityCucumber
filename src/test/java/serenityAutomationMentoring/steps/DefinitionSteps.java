@@ -28,11 +28,14 @@ public class DefinitionSteps {
         endUserSteps.sendGetRequestWithParamAction(orderId);
     }
 
-    @When("the user posts an order")
+    @When("the user missed parameter")
     public void whenSendPostRequest() {
         endUserSteps.sendPostRequestAction();
     }
-
+    @When("the user type wrong parameter")
+    public void whenSendPostWrongParam() {
+        endUserSteps.sendPostRequestWithWrongParamAction();
+    }
     @When("the user posts id '(.*)' petId '(.*)' quantity '(.*)'")
     public void whenSendPostRequestWithParameters(final int id, final int petId, final int quantity) {
         //add action with parameters

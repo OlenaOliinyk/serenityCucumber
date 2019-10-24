@@ -8,10 +8,8 @@ import org.junit.Assert;
 import net.thucydides.core.annotations.Step;
 
 import static io.restassured.RestAssured.*;
-import static net.serenitybdd.rest.SerenityRest.rest;
 
 import static net.serenitybdd.rest.SerenityRest.then;
-import static org.hamcrest.Matchers.equalTo;
 
 import static org.hamcrest.core.Is.is;
 import static serenityAutomationMentoring.steps.GetOrderById.*;
@@ -32,7 +30,7 @@ public class EndUserSteps {
     @Step
     public void sendGetRequestAction() {
 
-        Response response = getOrderPositiveRequest();
+        Response response = getOrderNegativeRequest();
         Serenity.setSessionVariable(ACTUAL_RESPONSE_STATUS_CODE).to(String.valueOf(response.getStatusCode()));
         Serenity.setSessionVariable(ACTUAL_RESPONSE_JSON).to(response.body().asString());
     }
@@ -46,9 +44,18 @@ public class EndUserSteps {
     @Step
     public void sendPostRequestAction() {
 
-        Response response = postOrderPositiveRequest();
+        Response response = postOrderNegativeRequestWithMissedParam();
         Serenity.setSessionVariable(ACTUAL_RESPONSE_STATUS_CODE).to(String.valueOf(response.getStatusCode()));
         Serenity.setSessionVariable(ACTUAL_RESPONSE_JSON).to(response.body().asString());
+        Serenity.setSessionVariable(ACTUAL_RESPONSE_ID).to(String.valueOf(response.getBody()));
+
+    }
+    @Step
+    public void sendPostRequestWithWrongParamAction() {
+
+        Response response = postOrderNegativeRequestWithWrongParam();
+        Serenity.setSessionVariable(ACTUAL_RESPONSE_STATUS_CODE).to(String.valueOf(response.getStatusCode()));
+       Serenity.setSessionVariable(ACTUAL_RESPONSE_JSON).to(response.body().asString());
         Serenity.setSessionVariable(ACTUAL_RESPONSE_ID).to(String.valueOf(response.getBody()));
 
     }
@@ -64,14 +71,14 @@ public class EndUserSteps {
 
     @Step
     public void saveResponseForGetAction() {
-        Response response = getOrderPositiveRequest();
+        Response response = getOrderNegativeRequest();
         Serenity.setSessionVariable(ACTUAL_RESPONSE_STATUS_CODE).to(String.valueOf(response.getStatusCode()));
         Serenity.setSessionVariable(ACTUAL_RESPONSE_JSON).to(response.body().asString());
     }
 
     @Step
     public void saveResponseForPostAction() {
-        Response response = postOrderPositiveRequest();
+        Response response = postOrderNegativeRequestWithMissedParam();
         Serenity.setSessionVariable(ACTUAL_RESPONSE_JSON).to(response.body().asString());
         Serenity.setSessionVariable(ACTUAL_RESPONSE_STATUS_CODE).to(String.valueOf(response.getStatusCode()));
         Serenity.setSessionVariable(ACTUAL_RESPONSE_ID).to(String.valueOf(response.getBody()));
