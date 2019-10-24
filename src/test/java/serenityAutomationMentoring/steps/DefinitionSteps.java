@@ -1,6 +1,5 @@
 package serenityAutomationMentoring.steps;
 
-import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -17,6 +16,7 @@ public class DefinitionSteps {
     @Given("the user has contentType")
     public void given() {
         endUserSteps.givenAction();
+        System.out.println("NEW TEST IS STARTED --------------");
     }
 
     @When("the user GET request")
@@ -38,21 +38,7 @@ public class DefinitionSteps {
     }
     @When("the user posts id '(.*)' petId '(.*)' quantity '(.*)'")
     public void whenSendPostRequestWithParameters(final int id, final int petId, final int quantity) {
-        //add action with parameters
         endUserSteps.sendPostRequestWithParametrsAction(id,petId,quantity);
-    }
-
-
-    @And("the user save response from property")
-    public void andSaveResponseForGet() {
-        endUserSteps.saveResponseForGetAction();
-        System.out.println("and step works for get");
-    }
-
-    @And("the user save response for post")
-    public void andSaveResponseForPost() {
-        endUserSteps.saveResponseForPostAction();
-        System.out.println("and step works for post");
     }
 
     @Then("the order has status '(.*)'")
@@ -65,5 +51,12 @@ public class DefinitionSteps {
     public void andThenVerifyId(final int id) {
         endUserSteps.verifyIdAction(id);
     }
-
+    @Then("the error type is '(.*)'")
+    public void andThenVerifyErrorType(final String errorType) {
+        endUserSteps.verifyTypeAction(errorType);
+    }
+    @Then("the message '(.*)' is displayed in body")
+    public void andThenVerifyMessage(final String message) {
+        endUserSteps.verifyMessageAction(message);
+    }
 }

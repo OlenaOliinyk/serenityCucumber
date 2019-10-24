@@ -19,7 +19,7 @@ public class EndUserSteps {
 
     public static final String ACTUAL_RESPONSE_STATUS_CODE = "actual.response.status.code";
     public static final String ACTUAL_RESPONSE_JSON = "actual.response.json";
-    public static final String ACTUAL_RESPONSE_ID = "actual.response.id";
+
 
     @Step
     public void givenAction() {
@@ -36,7 +36,7 @@ public class EndUserSteps {
     }
     @Step
     public void sendGetRequestWithParamAction(final int orderId) {
-        System.out.println("sent is started");
+
         Response response = getOrderPositiveRequestWithParam(orderId);
         Serenity.setSessionVariable(ACTUAL_RESPONSE_STATUS_CODE).to(String.valueOf(response.getStatusCode()));
         Serenity.setSessionVariable(ACTUAL_RESPONSE_JSON).to(response.body().asString());
@@ -47,7 +47,6 @@ public class EndUserSteps {
         Response response = postOrderNegativeRequestWithMissedParam();
         Serenity.setSessionVariable(ACTUAL_RESPONSE_STATUS_CODE).to(String.valueOf(response.getStatusCode()));
         Serenity.setSessionVariable(ACTUAL_RESPONSE_JSON).to(response.body().asString());
-        Serenity.setSessionVariable(ACTUAL_RESPONSE_ID).to(String.valueOf(response.getBody()));
 
     }
     @Step
@@ -56,7 +55,6 @@ public class EndUserSteps {
         Response response = postOrderNegativeRequestWithWrongParam();
         Serenity.setSessionVariable(ACTUAL_RESPONSE_STATUS_CODE).to(String.valueOf(response.getStatusCode()));
        Serenity.setSessionVariable(ACTUAL_RESPONSE_JSON).to(response.body().asString());
-        Serenity.setSessionVariable(ACTUAL_RESPONSE_ID).to(String.valueOf(response.getBody()));
 
     }
     @Step
@@ -65,25 +63,9 @@ public class EndUserSteps {
         Response response = postOrderPositiveRequestWithParametrs(id,petId,quantity);
         Serenity.setSessionVariable(ACTUAL_RESPONSE_STATUS_CODE).to(String.valueOf(response.getStatusCode()));
         Serenity.setSessionVariable(ACTUAL_RESPONSE_JSON).to(response.body().asString());
-        Serenity.setSessionVariable(ACTUAL_RESPONSE_ID).to(String.valueOf(response.getBody()));
 
     }
 
-    @Step
-    public void saveResponseForGetAction() {
-        Response response = getOrderNegativeRequest();
-        Serenity.setSessionVariable(ACTUAL_RESPONSE_STATUS_CODE).to(String.valueOf(response.getStatusCode()));
-        Serenity.setSessionVariable(ACTUAL_RESPONSE_JSON).to(response.body().asString());
-    }
-
-    @Step
-    public void saveResponseForPostAction() {
-        Response response = postOrderNegativeRequestWithMissedParam();
-        Serenity.setSessionVariable(ACTUAL_RESPONSE_JSON).to(response.body().asString());
-        Serenity.setSessionVariable(ACTUAL_RESPONSE_STATUS_CODE).to(String.valueOf(response.getStatusCode()));
-        Serenity.setSessionVariable(ACTUAL_RESPONSE_ID).to(String.valueOf(response.getBody()));
-
-    }
 
     @Step
     public void verifyStatusCodeAction(final String statusCode) {
@@ -98,5 +80,17 @@ public class EndUserSteps {
     @Step
     public void verifyIdAction(final int id) {
         then().body("id",is(id));
+        System.out.println(id+" id is expected");
+    }
+    @Step
+    public void verifyTypeAction(final String errorType) {
+        then().body("type",is(errorType));
+        System.out.println(errorType +" type of order in response ");
+    }
+    @Step
+    public void verifyMessageAction(final String message) {
+        then().body("message",is(message));
+        System.out.println(message +" message order in response");
+        System.out.println("test is completed -------------------");
     }
 }

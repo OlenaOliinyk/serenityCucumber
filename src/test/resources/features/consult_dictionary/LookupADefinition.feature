@@ -15,9 +15,8 @@ Feature: Lookup a definition
   Scenario: get inventory negative test with missed id
     Given the user has contentType
     When the user GET request
-    And the user save response from property
     Then the order has status '405'
-
+    And the error type is 'unknown'
 
   Scenario: Place an order for a pet
     Given the user has contentType
@@ -28,11 +27,14 @@ Feature: Lookup a definition
   Scenario: Place an order with missed parameter
     Given the user has contentType
     When the user missed parameter
-    And the user save response for post
     Then the order has status '400'
+    And the error type is 'unknown'
+    And the message 'bad input' is displayed in body
+
 
   Scenario: Place an order with wrong parameter- test is failed because Actual status=400
     Given the user has contentType
     When the user type wrong parameter
-    And the user save response for post
     Then the order has status '500'
+    And the error type is 'unknown'
+    And the message 'something bad happened' is displayed in body

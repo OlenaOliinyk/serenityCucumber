@@ -5,7 +5,7 @@ import io.restassured.response.Response;
 
 import static net.serenitybdd.rest.SerenityRest.given;
 import static net.serenitybdd.rest.SerenityRest.rest;
-import static net.serenitybdd.rest.SerenityRest.post;
+
 import static serenityAutomationMentoring.EnvironmentPropertyLoader.getProperty;
 import static serenityAutomationMentoring.properties.PropertiesNames.OPEN_GET_INVENTORY_ENDPOINT;
 import static serenityAutomationMentoring.properties.PropertiesNames.OPEN_POST_ORDER_ENDPOINT;
@@ -20,12 +20,10 @@ public class GetOrderById {
 
     public static Response getOrderPositiveRequestWithParam(final int orderId) {
 
-        System.out.println(" define what a property to use for get with parametr");
         return
                 rest()
                         .accept(ContentType.JSON)
                         .when()
-
                         .get(String.format(API_REQUEST_URL, getProperty(OPEN_GET_INVENTORY_ENDPOINT), orderId))
                         .then()
                         .log().body()
@@ -47,11 +45,6 @@ public class GetOrderById {
 
     }
 
-
-
-
-
-
     public static Response postOrderPositiveRequestWithParametrs(final int id, final int petId, final int quantity) {
 
         return
@@ -63,7 +56,6 @@ public class GetOrderById {
                         .log().body()
                         .when().post()
                         .then().extract().response();
-
 
     }
 
