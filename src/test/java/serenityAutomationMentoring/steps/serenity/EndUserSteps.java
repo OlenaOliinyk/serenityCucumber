@@ -8,9 +8,8 @@ import org.junit.Assert;
 import net.thucydides.core.annotations.Step;
 
 import static io.restassured.RestAssured.*;
-import static net.serenitybdd.rest.SerenityRest.rest;
 
-import static org.hamcrest.Matchers.equalTo;
+import static net.serenitybdd.rest.SerenityRest.then;
 
 import static org.hamcrest.core.Is.is;
 import static serenityAutomationMentoring.steps.GetOrderById.*;
@@ -20,7 +19,7 @@ public class EndUserSteps {
 
     public static final String ACTUAL_RESPONSE_STATUS_CODE = "actual.response.status.code";
     public static final String ACTUAL_RESPONSE_JSON = "actual.response.json";
-    public static final String ACTUAL_RESPONSE_ID = "actual.response.id";
+
 
     @Step
     public void givenAction() {
@@ -31,13 +30,13 @@ public class EndUserSteps {
     @Step
     public void sendGetRequestAction() {
 
-        Response response = getOrderPositiveRequest();
+        Response response = getOrderNegativeRequest();
         Serenity.setSessionVariable(ACTUAL_RESPONSE_STATUS_CODE).to(String.valueOf(response.getStatusCode()));
         Serenity.setSessionVariable(ACTUAL_RESPONSE_JSON).to(response.body().asString());
     }
     @Step
     public void sendGetRequestWithParamAction(final int orderId) {
-        System.out.println("sent is started");
+
         Response response = getOrderPositiveRequestWithParam(orderId);
         Serenity.setSessionVariable(ACTUAL_RESPONSE_STATUS_CODE).to(String.valueOf(response.getStatusCode()));
         Serenity.setSessionVariable(ACTUAL_RESPONSE_JSON).to(response.body().asString());
@@ -45,10 +44,17 @@ public class EndUserSteps {
     @Step
     public void sendPostRequestAction() {
 
-        Response response = postOrderPositiveRequest();
+        Response response = postOrderNegativeRequestWithMissedParam();
         Serenity.setSessionVariable(ACTUAL_RESPONSE_STATUS_CODE).to(String.valueOf(response.getStatusCode()));
         Serenity.setSessionVariable(ACTUAL_RESPONSE_JSON).to(response.body().asString());
-        Serenity.setSessionVariable(ACTUAL_RESPONSE_ID).to(String.valueOf(response.getBody()));
+
+    }
+    @Step
+    public void sendPostRequestWithWrongParamAction() {
+
+        Response response = postOrderNegativeRequestWithWrongParam();
+        Serenity.setSessionVariable(ACTUAL_RESPONSE_STATUS_CODE).to(String.valueOf(response.getStatusCode()));
+       Serenity.setSessionVariable(ACTUAL_RESPONSE_JSON).to(response.body().asString());
 
     }
     @Step
@@ -57,23 +63,6 @@ public class EndUserSteps {
         Response response = postOrderPositiveRequestWithParametrs(id,petId,quantity);
         Serenity.setSessionVariable(ACTUAL_RESPONSE_STATUS_CODE).to(String.valueOf(response.getStatusCode()));
         Serenity.setSessionVariable(ACTUAL_RESPONSE_JSON).to(response.body().asString());
-        Serenity.setSessionVariable(ACTUAL_RESPONSE_ID).to(String.valueOf(response.getBody()));
-
-    }
-
-    @Step
-    public void saveResponseForGetAction() {
-        Response response = getOrderPositiveRequest();
-        Serenity.setSessionVariable(ACTUAL_RESPONSE_STATUS_CODE).to(String.valueOf(response.getStatusCode()));
-        Serenity.setSessionVariable(ACTUAL_RESPONSE_JSON).to(response.body().asString());
-    }
-
-    @Step
-    public void saveResponseForPostAction() {
-        Response response = postOrderPositiveRequest();
-        Serenity.setSessionVariable(ACTUAL_RESPONSE_JSON).to(response.body().asString());
-        Serenity.setSessionVariable(ACTUAL_RESPONSE_STATUS_CODE).to(String.valueOf(response.getStatusCode()));
-        Serenity.setSessionVariable(ACTUAL_RESPONSE_ID).to(String.valueOf(response.getBody()));
 
     }
 
@@ -87,13 +76,21 @@ public class EndUserSteps {
         System.out.println(statusCode + ": status code is expected");
     }
 
+
     @Step
     public void verifyIdAction(final int id) {
-        Assert.assertThat(
-                "Wrong id in response.",
-                Serenity.sessionVariableCalled(ACTUAL_RESPONSE_ID).toString(),
-                equalTo(id));
-        System.out.println(id + ": status code is expected");
-        System.out.println("--------------Test is completed");
+        then().body("id",is(id));
+        System.out.println(id+" id is expected");
+    }
+    @Step
+    public void verifyTypeAction(final String errorType) {
+        then().body("type",is(errorType));
+        System.out.println(errorType +" type of order in response ");
+    }
+    @Step
+    public void verifyMessageAction(final String message) {
+        then().body("message",is(message));
+        System.out.println(message +" message order in response");
+        System.out.println("test is completed -------------------");
     }
 }
