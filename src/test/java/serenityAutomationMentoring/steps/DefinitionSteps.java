@@ -16,7 +16,7 @@ public class DefinitionSteps {
     @Given("the user has contentType")
     public void given() {
         endUserSteps.givenAction();
-        System.out.println("NEW TEST IS STARTED --------------");
+
     }
 
     @When("the user GET request")
@@ -41,9 +41,9 @@ public class DefinitionSteps {
         endUserSteps.sendPostRequestWithParametrsAction(id,petId,quantity);
     }
 
+
     @Then("the order has status '(.*)'")
     public void thenVerifyStatusCode(final String statusCode) {
-        //принимает на вход значение из фиче файла
         endUserSteps.verifyStatusCodeAction(statusCode);
     }
 

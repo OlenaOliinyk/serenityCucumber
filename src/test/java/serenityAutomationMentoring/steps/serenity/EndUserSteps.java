@@ -6,6 +6,8 @@ import net.serenitybdd.core.Serenity;
 import org.junit.Assert;
 
 import net.thucydides.core.annotations.Step;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import static io.restassured.RestAssured.*;
 
@@ -16,6 +18,7 @@ import static serenityAutomationMentoring.steps.GetOrderById.*;
 
 
 public class EndUserSteps {
+    private static Logger log = LoggerFactory.getLogger(EndUserSteps.class);
 
     public static final String ACTUAL_RESPONSE_STATUS_CODE = "actual.response.status.code";
     public static final String ACTUAL_RESPONSE_JSON = "actual.response.json";
@@ -66,31 +69,29 @@ public class EndUserSteps {
 
     }
 
-
     @Step
     public void verifyStatusCodeAction(final String statusCode) {
         Assert.assertThat(
                 "Wrong status code in response.",
                 Serenity.sessionVariableCalled(ACTUAL_RESPONSE_STATUS_CODE).toString(),
                 is(statusCode));
-        System.out.println(statusCode + ": status code is expected");
+        log.info(statusCode + ": status code is expected");
     }
 
 
     @Step
     public void verifyIdAction(final int id) {
         then().body("id",is(id));
-        System.out.println(id+" id is expected");
+        log.info(id+" id is expected");
     }
     @Step
     public void verifyTypeAction(final String errorType) {
         then().body("type",is(errorType));
-        System.out.println(errorType +" type of order in response ");
+        log.info(errorType +" type of order in response ");
     }
     @Step
     public void verifyMessageAction(final String message) {
         then().body("message",is(message));
-        System.out.println(message +" message order in response");
-        System.out.println("test is completed -------------------");
+        log.info("\'"+message+"\'" +" message in response for post order with wrong request");
     }
 }

@@ -13,7 +13,7 @@ import static serenityAutomationMentoring.properties.PropertiesNames.OPEN_POST_O
 public class GetOrderById {
     private static final String POST_BODY = "{ \"id\": %s, \"petId\": %s, \"quantity\": %s, \"shipDate\": \"2019-08-05T13:40:02.396Z\", \"status\": \"placed\", \"complete\": false}";
     private static final String POST_BODY_MISSED_PARAM = "{ \"id\": 55, \"petId\": , \"quantity\": 1, \"shipDate\": \"2019-08-05T13:40:02.396Z\", \"status\": \"placed\", \"complete\": false}";
-    private static final String POST_BODY_WRONG_PARAM = "";
+    private static final String POST_BODY_WRONG_REQUEST = "";
 
     private static final String RESOURCE = "/order";
     private static final String API_REQUEST_URL = "%s/%s";
@@ -33,7 +33,6 @@ public class GetOrderById {
 
     public static Response getOrderNegativeRequest() {
 
-        System.out.println(" define what a property to use for get order id value is missed");
         return
                 rest()
                         .accept(ContentType.JSON)
@@ -61,8 +60,6 @@ public class GetOrderById {
 
     public static Response postOrderNegativeRequestWithMissedParam() {
 
-        System.out.println("response class is started");
-
         return
                 given()
                         .contentType("application/json")
@@ -76,17 +73,16 @@ public class GetOrderById {
     }
     public static Response postOrderNegativeRequestWithWrongParam() {
 
-        System.out.println("response class is started");
-
         return
                 given()
                         .contentType("application/json")
                         .baseUri(getProperty(OPEN_POST_ORDER_ENDPOINT))
                         .basePath(RESOURCE)
-                        .body(POST_BODY_WRONG_PARAM)
+                        .body(POST_BODY_WRONG_REQUEST)
                         .log().body()
                         .when().post()
                         .then().extract().response();
 
     }
+
 }

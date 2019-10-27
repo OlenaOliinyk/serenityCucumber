@@ -20,7 +20,7 @@ Feature: Lookup a definition
 
   Scenario: Place an order for a pet
     Given the user has contentType
-    When the user posts id '45' petId '2' quantity '2'
+    When the user posts id '45' petId '1' quantity '1'
     Then the order has status '200'
     And the order has id '45'
 
@@ -32,9 +32,10 @@ Feature: Lookup a definition
     And the message 'bad input' is displayed in body
 
 
-  Scenario: Place an order with wrong parameter- test is failed because Actual status=400
+  Scenario: Place an order with wrong request
     Given the user has contentType
     When the user type wrong parameter
     Then the order has status '500'
     And the error type is 'unknown'
     And the message 'something bad happened' is displayed in body
+

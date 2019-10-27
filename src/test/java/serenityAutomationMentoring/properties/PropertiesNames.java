@@ -5,7 +5,6 @@ public class PropertiesNames {
 
     public static final String OPEN_GET_INVENTORY_ENDPOINT = "open.get.inventory.endpoint";
     public static final String OPEN_POST_ORDER_ENDPOINT = "open.post.order.endpoint";
-    public static final String APP_ID = "app.id";
 
     private PropertiesNames() {
     }

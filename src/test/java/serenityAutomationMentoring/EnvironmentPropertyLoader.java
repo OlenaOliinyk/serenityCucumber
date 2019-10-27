@@ -1,9 +1,9 @@
 package serenityAutomationMentoring;
 
-//import org.slf4j.Logger;
-//import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import serenityAutomationMentoring.properties.PropertiesNames;
-import org.apache.log4j.Logger;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Optional;
@@ -13,10 +13,7 @@ import java.util.concurrent.atomic.AtomicReference;
 
 public class EnvironmentPropertyLoader {
 
-      private static Logger log = org.apache.log4j.Logger.getLogger(EnvironmentPropertyLoader.class);
-
-    //private static Logger log = LoggerFactory.getLogger(EnvironmentPropertyLoader.class);
-
+    private static Logger log = LoggerFactory.getLogger(EnvironmentPropertyLoader.class);
 
     private static AtomicReference<EnvironmentPropertyLoader> instance = new AtomicReference<>(null);
 
@@ -47,8 +44,7 @@ public class EnvironmentPropertyLoader {
             props.load(inputStream);
             inputStream.close();
         } catch (IOException e) {
-             //  Logger.log.info(e);
-
+               //log.info(e);
             throw new IllegalStateException("Unable to load properties from resource " + propertyFile);
         }
         for (final String propertyName : props.stringPropertyNames()) {
