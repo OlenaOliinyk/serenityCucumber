@@ -33,7 +33,6 @@ public class GetOrderById {
 
     public static Response getOrderNegativeRequest() {
 
-        System.out.println(" define what a property to use for get order id value is missed");
         return
                 rest()
                         .accept(ContentType.JSON)
@@ -61,8 +60,6 @@ public class GetOrderById {
 
     public static Response postOrderNegativeRequestWithMissedParam() {
 
-        System.out.println("response class is started");
-
         return
                 given()
                         .contentType("application/json")
@@ -76,8 +73,6 @@ public class GetOrderById {
     }
     public static Response postOrderNegativeRequestWithWrongParam() {
 
-        System.out.println("response class is started");
-
         return
                 given()
                         .contentType("application/json")
@@ -89,4 +84,5 @@ public class GetOrderById {
                         .then().extract().response();
 
     }
+
 }

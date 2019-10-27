@@ -16,7 +16,7 @@ public class DefinitionSteps {
     @Given("the user has contentType")
     public void given() {
         endUserSteps.givenAction();
-       // System.out.println("NEW TEST IS STARTED --------------");
+
     }
 
     @When("the user GET request")
@@ -40,6 +40,7 @@ public class DefinitionSteps {
     public void whenSendPostRequestWithParameters(final int id, final int petId, final int quantity) {
         endUserSteps.sendPostRequestWithParametrsAction(id,petId,quantity);
     }
+
 
     @Then("the order has status '(.*)'")
     public void thenVerifyStatusCode(final String statusCode) {

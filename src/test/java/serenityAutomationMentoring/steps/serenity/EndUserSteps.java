@@ -75,7 +75,6 @@ public class EndUserSteps {
                 "Wrong status code in response.",
                 Serenity.sessionVariableCalled(ACTUAL_RESPONSE_STATUS_CODE).toString(),
                 is(statusCode));
-        //System.out.println(statusCode + ": status code is expected");
         log.info(statusCode + ": status code is expected");
     }
 
@@ -83,19 +82,16 @@ public class EndUserSteps {
     @Step
     public void verifyIdAction(final int id) {
         then().body("id",is(id));
-      // System.out.println(id+" id is expected");
         log.info(id+" id is expected");
     }
     @Step
     public void verifyTypeAction(final String errorType) {
         then().body("type",is(errorType));
-        //System.out.println(errorType +" type of order in response ");
         log.info(errorType +" type of order in response ");
     }
     @Step
     public void verifyMessageAction(final String message) {
         then().body("message",is(message));
-        //System.out.println(message +" message order in response");
         log.info("\'"+message+"\'" +" message in response for post order with wrong request");
     }
 }
