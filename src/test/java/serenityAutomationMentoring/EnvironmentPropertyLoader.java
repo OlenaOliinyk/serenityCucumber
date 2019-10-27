@@ -1,9 +1,9 @@
 package serenityAutomationMentoring;
 
-//import org.slf4j.Logger;
-//import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import serenityAutomationMentoring.properties.PropertiesNames;
-import org.apache.log4j.Logger;
+//import org.apache.log4j.Logger;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Optional;
@@ -13,9 +13,9 @@ import java.util.concurrent.atomic.AtomicReference;
 
 public class EnvironmentPropertyLoader {
 
-      private static Logger log = org.apache.log4j.Logger.getLogger(EnvironmentPropertyLoader.class);
+     // private static Logger log = org.apache.log4j.Logger.getLogger(EnvironmentPropertyLoader.class);
 
-    //private static Logger log = LoggerFactory.getLogger(EnvironmentPropertyLoader.class);
+    private static Logger log = LoggerFactory.getLogger(EnvironmentPropertyLoader.class);
 
 
     private static AtomicReference<EnvironmentPropertyLoader> instance = new AtomicReference<>(null);
