@@ -10,7 +10,7 @@ Feature: Lookup a definition
     Examples:
       | orderId | statusCode |
       | 3       | 200        |
-      | 22      | 404        |
+      | 222      | 404        |
 
   Scenario: get inventory negative test with missed id
     Given the user has contentType
