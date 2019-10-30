@@ -16,7 +16,6 @@ public class DefinitionSteps {
     @Given("the user has contentType")
     public void given() {
         endUserSteps.givenAction();
-
     }
 
     @When("the user GET request")
@@ -46,7 +45,6 @@ public class DefinitionSteps {
     public void thenVerifyStatusCode(final String statusCode) {
         endUserSteps.verifyStatusCodeAction(statusCode);
     }
-
     @Then("the order has id '(.*)'")
     public void andThenVerifyId(final int id) {
         endUserSteps.verifyIdAction(id);
