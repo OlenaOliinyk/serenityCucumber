@@ -44,7 +44,6 @@ public class EnvironmentPropertyLoader {
             props.load(inputStream);
             inputStream.close();
         } catch (IOException e) {
-            //log.info(e);
             throw new IllegalStateException("Unable to load properties from resource " + propertyFile);
         }
         for (final String propertyName : props.stringPropertyNames()) {
