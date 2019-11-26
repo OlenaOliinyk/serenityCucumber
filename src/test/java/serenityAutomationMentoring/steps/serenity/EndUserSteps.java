@@ -19,10 +19,7 @@ import static serenityAutomationMentoring.steps.GetOrderById.*;
 
 public class EndUserSteps {
     private static Logger log = LoggerFactory.getLogger(EndUserSteps.class);
-
-    public static final String ACTUAL_RESPONSE_STATUS_CODE = "actual.response.status.code";
-    public static final String ACTUAL_RESPONSE_JSON = "actual.response.json";
-
+    private static final String ACTUAL_RESPONSE_STATUS_CODE = "actual.response.status.code";
 
     @Step
     public void givenAction() {
@@ -35,37 +32,36 @@ public class EndUserSteps {
 
         Response response = getOrderNegativeRequest();
         Serenity.setSessionVariable(ACTUAL_RESPONSE_STATUS_CODE).to(String.valueOf(response.getStatusCode()));
-        Serenity.setSessionVariable(ACTUAL_RESPONSE_JSON).to(response.body().asString());
+
     }
+
     @Step
     public void sendGetRequestWithParamAction(final int orderId) {
-
         Response response = getOrderPositiveRequestWithParam(orderId);
         Serenity.setSessionVariable(ACTUAL_RESPONSE_STATUS_CODE).to(String.valueOf(response.getStatusCode()));
-        Serenity.setSessionVariable(ACTUAL_RESPONSE_JSON).to(response.body().asString());
     }
+
     @Step
     public void sendPostRequestAction() {
 
         Response response = postOrderNegativeRequestWithMissedParam();
         Serenity.setSessionVariable(ACTUAL_RESPONSE_STATUS_CODE).to(String.valueOf(response.getStatusCode()));
-        Serenity.setSessionVariable(ACTUAL_RESPONSE_JSON).to(response.body().asString());
 
     }
+
     @Step
     public void sendPostRequestWithWrongParamAction() {
 
         Response response = postOrderNegativeRequestWithWrongParam();
         Serenity.setSessionVariable(ACTUAL_RESPONSE_STATUS_CODE).to(String.valueOf(response.getStatusCode()));
-       Serenity.setSessionVariable(ACTUAL_RESPONSE_JSON).to(response.body().asString());
 
     }
+
     @Step
     public void sendPostRequestWithParametrsAction(final int id, final int petId, final int quantity) {
 
-        Response response = postOrderPositiveRequestWithParametrs(id,petId,quantity);
+        Response response = postOrderPositiveRequestWithParametrs(id, petId, quantity);
         Serenity.setSessionVariable(ACTUAL_RESPONSE_STATUS_CODE).to(String.valueOf(response.getStatusCode()));
-        Serenity.setSessionVariable(ACTUAL_RESPONSE_JSON).to(response.body().asString());
 
     }
 
@@ -81,17 +77,19 @@ public class EndUserSteps {
 
     @Step
     public void verifyIdAction(final int id) {
-        then().body("id",is(id));
-        log.info(id+" id is expected");
+        then().body("id", is(id));
+        log.info(id + " id is expected");
     }
+
     @Step
     public void verifyTypeAction(final String errorType) {
-        then().body("type",is(errorType));
-        log.info(errorType +" type of order in response ");
+        then().body("type", is(errorType));
+        log.info(errorType + " type of order in response ");
     }
+
     @Step
     public void verifyMessageAction(final String message) {
-        then().body("message",is(message));
-        log.info("\'"+message+"\'" +" message in response for post order with wrong request");
+        then().body("message", is(message));
+        log.info("\'" + message + "\'" + " message in response for post order with wrong request");
     }
 }
