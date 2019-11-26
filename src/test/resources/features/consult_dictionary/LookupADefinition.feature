@@ -9,7 +9,7 @@ Feature: Lookup a definition
     Then the order has status '<statusCode>'
     Examples:
       | orderId | statusCode |
-      | 3       | 200        |
+      | 3        | 200        |
       | 222      | 404        |
 
   Scenario: get inventory negative test with missed id
@@ -20,9 +20,9 @@ Feature: Lookup a definition
 
   Scenario: Place an order for a pet
     Given the user has contentType
-    When the user posts id '45' petId '1' quantity '1'
+    When the user posts id '3' petId '1' quantity '1'
     Then the order has status '200'
-    And the order has id '45'
+    And the order has id '3'
 
   Scenario: Place an order with missed parameter
     Given the user has contentType
